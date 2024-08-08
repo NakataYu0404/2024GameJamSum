@@ -3,6 +3,7 @@
 #include <DxLib.h>
 #include "../Application.h"
 #include "../Utility/AsoUtility.h"
+#include "../Manager/Timer.h"
 #include "../Manager/SceneManager.h"
 #include "../Manager/ResourceManager.h"
 #include "../Manager/InputManager.h"
@@ -26,6 +27,8 @@ void GameScene::Init(void)
 
 	magma_ = std::make_shared<Magma>();
 	magma_->Init();
+
+	Timer::GetInstance().ResetTimer();
 }
 
 void GameScene::Update(void)
@@ -49,6 +52,8 @@ void GameScene::Update(void)
 void GameScene::Draw(void)
 {
 	DrawFormatString(0, 0, 0xffffff, "Game");
+
+	Timer::GetInstance().Draw();
 
 	magma_->Draw();
 }
