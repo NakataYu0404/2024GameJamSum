@@ -29,6 +29,7 @@ public:
 
 	//	コンストラクタ
 	EffectController(void);
+
 	//	デストラクタ
 	~EffectController(void);
 
@@ -74,5 +75,8 @@ private:
 	float switchLoopReverse_;
 
 	float speed_;
+
+	//	制作者：中田
+	//	他プロジェクトに持ち出し禁止！
 };
 

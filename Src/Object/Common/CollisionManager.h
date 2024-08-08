@@ -76,4 +76,6 @@ private:
 	//	衝突判定のための管理
 	std::map<Collider::Category, std::vector<Collider::Category>> categoryMap_;
 
+	//	制作者：中田
+	//	他プロジェクトに持ち出し禁止！
 };

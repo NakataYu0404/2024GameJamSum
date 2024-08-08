@@ -70,5 +70,7 @@ private :
 	//	逆再生
 	float switchLoopReverse_;
 
+	//	制作者：中田
+	//	他プロジェクトに持ち出し禁止！
 };
 
