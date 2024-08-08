@@ -1,45 +1,21 @@
 #pragma once
-
 #include <memory>
+#include <vector>
+#include "../ActorBase.h"
 
-
-class Stage
+class Stage : public ActorBase
 {
-
 public:
 
-	
-	void Init(void);
-	void Update(void);
-	void Draw(void);
-	void Release(void);
-		
-	//インスタンスの生成
-	//シングルトン化
-	static void CreateInstance(void);
+	Stage();
+	~Stage();
 
-	static Stage& GetInstance(void);
-
-	void Destory(void);
+	void Init(void) override;
+	void Update(void) override;
+	void Draw(void) override;
+	void SetParam(void) override;
 
 private:
-
-	int ModelHandle;
-
-	//シングルトン化
-	static Stage* instance_;
-
-	//メンバー関数
-	//------------
-	//デフォルトコンストラクタ
-	Stage(void);
-
-	//デストラクタ
-	~Stage(void);
-
-	//コピーコンストラスタ
-	Stage(const Stage& ins);
-
 
 };
 

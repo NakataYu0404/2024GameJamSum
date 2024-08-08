@@ -51,7 +51,7 @@ void Magma::SetParam(void)
 {
 	transform_->pos = { 0.0f,-400.0f,1500.0f };
 	transform_->quaRot = Quaternion();
-	transform_->scl = { 3.0f,1.0f,1.8f };
+	transform_->scl = { 4.0f,1.0f,3.0f };
 
 	transform_->Update();
 }

@@ -68,9 +68,6 @@ void Application::Init(void)
 	//	ƒV[ƒ“ŠÇ—‰Šú‰»
 	SceneManager::CreateInstance();
 
-	//Stage
-	Stage::CreateInstance();
-
 	std::random_device rd;
 	gen_ = std::mt19937(rd());
 
@@ -101,7 +98,6 @@ void Application::Run(void)
 
 void Application::Destroy(void)
 {
-	Stage::GetInstance().Destory();
 	InputManager::GetInstance().Destroy();
 	ResourceManager::GetInstance().Destroy();
 	SceneManager::GetInstance().Destroy();
