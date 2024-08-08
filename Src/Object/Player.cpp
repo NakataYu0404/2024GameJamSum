@@ -46,6 +46,12 @@ void Player::InitModel()
 	anim_->Add(static_cast<int>(AnimType::Move), "PlayerData/Model/Walk.mv1", 20.0f);
 	anim_->Add(static_cast<int>(AnimType::Landing), "PlayerData/Model/Landing.mv1", 20.0f);
 	anim_->Play(static_cast<int>(AnimType::Move));
+
+	sphereModel_.modelId = MV1LoadModel("PlayerData/Model/Sphere.mv1");
+	// sphereModel_.modelId = MV1LoadModel("PlayerData/Model/X bot.mv1");
+	sphereModel_.quaRot = Quaternion();
+	sphereModel_.quaRotLocal = Quaternion::Euler({ 0.0f,AsoUtility::Deg2RadF(180.0f),0.0f });
+	sphereModel_.scl = { 0.75f,0.75f,0.75f };
 }
 
 void Player::Update()
@@ -56,6 +62,9 @@ void Player::Update()
 	CollisionStage();
 	anim_->Update();
 	transform_->Update();
+
+	sphereModel_.pos = transform_->pos;
+	sphereModel_.Update();
 }
 
 void Player::Draw()
@@ -67,6 +76,7 @@ void Player::Draw()
 
 	// ƒ‚ƒfƒ‹•\Ž¦
 	MV1DrawModel(transform_->modelId);
+	MV1DrawModel(sphereModel_.modelId);
 
 	DebugDraw();
 }

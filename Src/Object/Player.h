@@ -64,6 +64,8 @@ protected:
 
     shared_ptr<AnimationController> anim_;
 
+    Transform sphereModel_;
+
     State state_;
 
     // アップデート	// アップデート管理
