@@ -54,11 +54,13 @@ void GameScene::Draw(void)
 {
 	DrawFormatString(0, 0, 0xffffff, "Game");
 
-	Stage::GetInstance().Draw();
+	
 
 	Timer::GetInstance().Draw();
 
 	magma_->Draw();
+	
+	Stage::GetInstance().Draw();
 }
 
 void GameScene::UpdateReady(void)
