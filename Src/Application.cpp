@@ -28,6 +28,7 @@ Application& Application::GetInstance(void)
 
 void Application::Init(void)
 {
+	/////aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 	//	アプリケーションの初期設定
 	SetWindowText("Contest");
