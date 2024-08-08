@@ -2,6 +2,7 @@
 #include <EffekseerForDXLib.h>
 #include "Manager/InputManager.h"
 #include "Manager/ResourceManager.h"
+#include "Manager/Timer.h"
 #include "Manager/SceneManager.h"
 #include "Object/Common/CollisionManager.h"
 #include "Application.h"
@@ -11,6 +12,8 @@ Application* Application::instance_ = nullptr;
 const std::string Application::PATH_IMAGE = "Data/Image/";
 const std::string Application::PATH_MODEL = "Data/Model/";
 const std::string Application::PATH_EFFECT = "Data/Effect/";
+const std::string Application::PATH_SOUND = "Data/Sound/";
+const std::string Application::PATH_SHADER = "Data/Shader/";
 
 void Application::CreateInstance(void)
 {
@@ -58,6 +61,9 @@ void Application::Init(void)
 
 	CollisionManager::CreateInstance();
 
+	//タイマー管理初期化
+	Timer::CreateInstance();
+
 	//	シーン管理初期化
 	SceneManager::CreateInstance();
 
@@ -69,12 +75,14 @@ void Application::Run(void)
 
 	auto& inputManager = InputManager::GetInstance();
 	auto& sceneManager = SceneManager::GetInstance();
+	auto& timer = Timer::GetInstance();
 
 	//	ゲームループ
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
 
 		inputManager.Update();
+		timer.Update();
 		sceneManager.Update();
 
 		sceneManager.Draw();
@@ -91,6 +99,7 @@ void Application::Destroy(void)
 	InputManager::GetInstance().Destroy();
 	ResourceManager::GetInstance().Destroy();
 	SceneManager::GetInstance().Destroy();
+	Timer::GetInstance().Destroy();
 	CollisionManager::GetInstance().Destroy();
 
 	//	Effekseerを終了する。

@@ -189,3 +189,6 @@ bool EffectController::IsEnd(int type)
 	}
 	return false;
 }
+
+//	制作者：中田
+//	他プロジェクトに持ち出し禁止！
