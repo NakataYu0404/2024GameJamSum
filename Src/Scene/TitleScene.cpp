@@ -40,7 +40,6 @@ void TitleScene::Draw(void)
 
 	DrawFormatString(0, 0, 0xffffff, "Title");
 
-	Stage::GetInstance().Draw();
 
 	DrawStringToHandle(Application::SCREEN_SIZE_X / 2 - 180
 		, Application::SCREEN_SIZE_Y / 2 + 200
