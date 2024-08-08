@@ -3,7 +3,7 @@
 #include "../Object/Common/Transform.h"
 class SceneManager;
 class AnimationController;
-
+class Magma;
 
 class GameScene : public SceneBase
 {
@@ -41,4 +41,6 @@ private:
 
 	//	今、ゲームシーン内のどこか
 	InSceneType inTypeGame_;
+
+	std::shared_ptr<Magma> magma_;
 };

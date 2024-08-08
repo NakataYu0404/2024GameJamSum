@@ -34,6 +34,24 @@ void ResourceManager::Init(void)
 	
 	////res = new RES(RES_T::, PATH_IMG + "");
 	////resourcesMap_.emplace(SRC::, res);
+
+	//	画像
+
+
+	//	モデル
+	res = new RES(RES_T::MODEL, PATH_MDL + "Magma/magma.mv1");
+	resourcesMap_.emplace(SRC::MDL_MAGMA, res);
+
+	//	エフェクト
+
+
+	//	サウンド
+
+
+	//	シェーダー
+
+
+
 }
 
 void ResourceManager::Release(void)
