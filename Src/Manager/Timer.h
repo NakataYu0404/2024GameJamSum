@@ -1,6 +1,7 @@
 #pragma once
 
 #include<DxLib.h>
+#include"../Common/Vector2.h"
 
 class Timer
 {
@@ -17,6 +18,13 @@ public:
 
 	//一秒のミリ秒変換
 	static constexpr int SEC_2_MILLISEC = 1000;
+
+	//画像関係
+	//--------------------
+
+	//タイマーフレームの大きさ
+	static constexpr int FRAME_SIZE_X = 200;
+	static constexpr int FRAME_SIZE_Y = 80;
 
 	//関数
 	//--------------------
@@ -66,4 +74,10 @@ private:
 
 	//現在時刻
 	int nowCount_;
+
+	//タイマーフレームの画像
+	int timerFrameImg_;
+
+	//タイマーフレームの座標
+	Vector2 framePos_;
 };

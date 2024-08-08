@@ -1,3 +1,4 @@
+#include"../Application.h"
 #include"Timer.h"
 
 //シングルトン化
@@ -7,6 +8,10 @@ Timer* Timer::instance_ = nullptr;
 
 Timer::Timer(void)
 {
+	timerFrameImg_ = 0;
+	counter_ = COUNTER_ZERO;
+	nowCount_ = 0;
+	framePos_ = { 0,0 };
 }
 
 Timer::~Timer(void)
@@ -15,9 +20,13 @@ Timer::~Timer(void)
 
 void Timer::Init(void)
 {
-	counter_ = COUNTER_ZERO;
+	//画像読み込み
+	timerFrameImg_ = LoadGraph((Application::PATH_IMAGE + "TimerFrame.png").c_str());
 
+	//変数の初期化
+	counter_ = COUNTER_ZERO;
 	nowCount_ = GetNowCount();
+	framePos_ = { Application::SCREEN_SIZE_X / 2, FRAME_SIZE_Y / 2 };
 }
 
 void Timer::Update(void)
@@ -33,7 +42,9 @@ void Timer::Update(void)
 void Timer::Draw(void)
 {
 	//デバッグ
-	DrawFormatString(0, 16, IsTimeOver() ? 0xffffff : 0xff0000, "%d", TIME_LIMIT.Sec - counter_.Sec);
+	DrawRotaGraph(framePos_.x, framePos_.y + 10, 1.0, 0.0, timerFrameImg_, true);
+
+	DrawFormatString(framePos_.x, framePos_.y, IsTimeOver() ? 0x000000 : 0xff0000, "%d", TIME_LIMIT.Sec - counter_.Sec);
 }
 
 void Timer::Release(void)
