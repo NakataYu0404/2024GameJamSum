@@ -34,7 +34,7 @@ void Timer::Init(void)
 void Timer::Update(void)
 {
 	//時間計測
-	if (GetNowCount() - nowCount_ >= SEC_2_MILLISEC)
+	if (GetNowCount() - nowCount_ >= SEC_2_MILLISEC && TIME_LIMIT.Sec - counter_.Sec > 0)
 	{
 		nowCount_ = GetNowCount();
 		counter_.Sec++;
@@ -43,11 +43,10 @@ void Timer::Update(void)
 
 void Timer::Draw(void)
 {
-	//デバッグ
+	//枠の描画
 	DrawRotaGraph(framePos_.x, framePos_.y + 10, 1.0, 0.0, timerFrameImg_, true);
 
-	//DrawFormatString(framePos_.x, framePos_.y, IsTimeOver() ? 0x000000 : 0xff0000, "%d%d", (TIME_LIMIT.Sec - counter_.Sec) / 10, (TIME_LIMIT.Sec - counter_.Sec) % 10);
-
+	//数字の描画
 	DrawRotaGraph(framePos_.x, framePos_.y + 10, 1.0, 0.0, numberImg_[(TIME_LIMIT.Sec - counter_.Sec) / 10], true);
 	DrawRotaGraph(framePos_.x  + NUMBER_SIZE_X, framePos_.y + 10, 1.0, 0.0, numberImg_[(TIME_LIMIT.Sec - counter_.Sec) % 10], true);
 }
