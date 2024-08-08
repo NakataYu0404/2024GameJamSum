@@ -12,8 +12,8 @@ public:
 	void Init(void);
 	void Update(void);
 	void Draw(void);
-
-
+	void Release(void);
+		
 	//インスタンスの生成
 	//シングルトン化
 	static void CreateInstance(void);
@@ -22,7 +22,7 @@ public:
 
 private:
 
-
+	int ModelHandle;
 
 	//シングルトン化
 	static Stage* instance_;
