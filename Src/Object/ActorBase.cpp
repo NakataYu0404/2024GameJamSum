@@ -15,6 +15,7 @@ ActorBase::~ActorBase(void)
 
 void ActorBase::SetParam(void)
 {
+	//
 }
 
 void ActorBase::OnCollision(std::weak_ptr<Collider> collider)
