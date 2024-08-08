@@ -67,15 +67,15 @@ void GameScene::Draw(void)
 {
 	DrawFormatString(0, 0, 0xffffff, "Game");
 
+	//	3D‚ð•`‰æ
 	Draw3D();
+
+	//	2D‚ð•`‰æ
 	Draw2D();
+
+	//	UI‚ð•`‰æ
 	DrawUI();
 
-	magma_->Draw();
-
-	for (auto& p : players_) {
-		p->Draw();
-	}
 	Collision();
 }
 
@@ -106,9 +106,15 @@ void GameScene::UpdateOver(void)
 void GameScene::Draw3D(void)
 {
 	//	3D‚Ì‚à‚Ì•`‰æ
-	//Stage::GetInstance().Draw();
+	Stage::GetInstance().Draw();
 
 	magma_->Draw();
+
+	for (auto& p : players_) 
+	{
+		p->Draw();
+	}
+
 }
 
 void GameScene::Draw2D(void)
