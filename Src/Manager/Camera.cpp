@@ -127,10 +127,6 @@ void Camera::ChangeMode(MODE mode)
 		pos_ = AsoUtility::VECTOR_ZERO;
 		targetPos_ = AsoUtility::VECTOR_ZERO;
 		break;
-	case Camera::MODE::GAME_MODE:
-		pos_ = { 0.0f,400.0f,100.0f };
-		targetPos_ = { 0.0f,10.0f,500.0f };
-		break;
 	case Camera::MODE::FOLLOW:
 		break;
 
@@ -241,8 +237,8 @@ void Camera::SetBeforeDrawFixedPoint(void)
 	}
 	pos_ = { 0.0f,pos_.y,pos_.z };*/
 
-	/*pos_ = { 0.0f,400.0f,100.0f };
-	targetPos_ = { 0.0f,10.0f,500.0f };*/
+	pos_ = { 0.0f,400.0f,-500.0f };
+	targetPos_ = { 0.0f,0.0f,-50.0f };
 
 	//	‰½‚à‚µ‚È‚¢
 }
