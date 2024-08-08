@@ -26,7 +26,8 @@ void TitleScene::Init(void)
 
 void TitleScene::Update(void)
 {
-	if (InputManager::GetInstance().IsTrgDown(KEY_INPUT_NUMPAD0))
+	//TODO ゲームパッドのAボタンの判定の追加
+	if (InputManager::GetInstance().IsTrgDown(KEY_INPUT_SPACE))
 	{
 		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME);
 	}
@@ -34,7 +35,19 @@ void TitleScene::Update(void)
 
 void TitleScene::Draw(void)
 {
+	int font;
+
+	font = CreateFontToHandle(NULL, 50, 5);
+
 	DrawFormatString(0, 0, 0xffffff, "Title");
 
 	Stage::GetInstance().Draw();
+
+	DrawStringToHandle(Application::SCREEN_SIZE_X / 2 - 180
+		, Application::SCREEN_SIZE_Y / 2 + 200
+		, GetJoypadNum() > 0 ? "Push A Button!!" : "Push Space Key!!"
+		, (GetNowCount() / (1000 / 2)) % 2 == 0 ? 0xffffff : 0xbbbbbb
+		, font);
+
+	DeleteFontToHandle(font);
 }
