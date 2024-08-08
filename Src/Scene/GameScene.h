@@ -39,6 +39,11 @@ private:
 	void UpdateInGame(void);
 	void UpdateOver(void);
 
+	void Draw3D(void);
+	void Draw2D(void);
+	void DrawUI(void);
+
+
 	//	今、ゲームシーン内のどこか
 	InSceneType inTypeGame_;
 

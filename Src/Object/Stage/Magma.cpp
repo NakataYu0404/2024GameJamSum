@@ -40,7 +40,7 @@ void Magma::Draw(void)
 
 void Magma::SetParam(void)
 {
-	transform_->pos = { 0.0f,-1000.0f,1000.0f };
+	transform_->pos = { 0.0f,-200.0f,1000.0f };
 	transform_->quaRot = Quaternion();
 	transform_->scl = { 1.0f,1.0f,1.0f };
 
