@@ -51,4 +51,5 @@ private:
 	std::shared_ptr<Magma> magma_;
 
 	vector <shared_ptr<Player>> players_;
+	void Collision();
 };

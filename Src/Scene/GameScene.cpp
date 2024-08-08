@@ -63,9 +63,11 @@ void GameScene::Draw(void)
 	DrawFormatString(0, 0, 0xffffff, "Game");
 
 	magma_->Draw();
+
 	for (auto& p : players_) {
 		p->Draw();
 	}
+	Collision();
 }
 
 void GameScene::UpdateReady(void)
@@ -86,4 +88,24 @@ void GameScene::UpdateInGame(void)
 
 void GameScene::UpdateOver(void)
 {
+}
+
+void GameScene::Collision()
+{
+	for (auto& p1 : players_) {
+		for (auto& p2 : players_) {
+			if (p1 == p2) continue;
+			// ”»’è
+			float distance = VSize(VSub(p1->GetTransform().lock()->pos, p2->GetTransform().lock()->pos));
+			float CollDistance = p1->GetSphere().lock()->GetRadius() + p2->GetSphere().lock()->GetRadius();
+			if (distance <= CollDistance) {
+				// Õ“Ë”»’è
+				//VECTOR p1Dir = p1->GetMoveDir();
+				//VECTOR p2Dir = p2->GetMoveDir();
+				//p1->SetMoveDir(p2Dir);
+				//p2->SetMoveDir(p1Dir);
+				DrawFormatString(0, 64, 0xffffff, "“–‚½‚Á‚½");
+			}
+		}
+	}
 }
