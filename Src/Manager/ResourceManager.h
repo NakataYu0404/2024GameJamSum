@@ -17,11 +17,13 @@ public:
 
 		//	モデル MDL_
 		MDL_NONE,
+		MDL_STAGE,
 		MDL_MAGMA,
 
 		//	エフェクト EFF_
 		EFF_MAGMAJUMP,
 		EFF_MAGMABUBBLE,
+		EFF_HITBODY,
 
 		//	サウンド SND_
 

@@ -12,6 +12,7 @@ void ResourceManager::CreateInstance(void)
 		instance_ = new ResourceManager();
 	}
 	instance_->Init();
+	
 }
 
 ResourceManager& ResourceManager::GetInstance(void)
@@ -42,7 +43,10 @@ void ResourceManager::Init(void)
 	res = new RES(RES_T::MODEL, PATH_MDL + "-1");
 	resourcesMap_.emplace(SRC::MDL_NONE, res);
 
-	res = new RES(RES_T::MODEL, PATH_MDL + "Magma/magma.mv1");
+	res = new RES(RES_T::MODEL, PATH_MDL + "Stage/stage.mv1");
+	resourcesMap_.emplace(SRC::MDL_STAGE, res);
+
+	res = new RES(RES_T::MODEL, PATH_MDL + "Stage/Magma/magma.mv1");
 	resourcesMap_.emplace(SRC::MDL_MAGMA, res);
 
 	//	エフェクト
@@ -51,6 +55,9 @@ void ResourceManager::Init(void)
 
 	res = new RES(RES_T::EFFEKSEER, PATH_EFF + "MagmaBubble_Suekane/MagmaBubble_Suekane.efkefc");
 	resourcesMap_.emplace(SRC::EFF_MAGMABUBBLE, res);
+
+	res = new RES(RES_T::EFFEKSEER, PATH_EFF + "HitEffect/hit.efkefc");
+	resourcesMap_.emplace(SRC::EFF_HITBODY, res);
 
 
 	//	サウンド
