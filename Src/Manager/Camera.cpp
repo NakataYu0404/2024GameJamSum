@@ -55,6 +55,11 @@ void Camera::SetBeforeDraw(void)
 		cameraUp_
 	);
 
+
+	DrawSphere3D(pos_, 3, 1, 0xff0000, 0xff0000, true);
+	DrawSphere3D(targetPos_, 3, 1, 0xff0000, 0xff0000, true);
+
+
 	midRayDestinationPos_ = VAdd(pos_, VScale(GetForward(), MIDPOS_STRETCH_POW));
 
 	//	DXライブラリのカメラとEffekseerのカメラを同期する。
@@ -209,11 +214,30 @@ void Camera::ProcessRot(void)
 
 void Camera::SetBeforeDrawFixedPoint(void)
 {
+	auto& ins = InputManager::GetInstance();
 
+	/*if (ins.IsNew(KEY_INPUT_UP))
+	{
+		pos_.y += 1.0f;
+	}
+	if (ins.IsNew(KEY_INPUT_DOWN))
+	{
+		pos_.y -= 1.0f;
+	}
 
-	pos_ = { 0.0f,200.0f,-100.0f };
+	if (ins.IsNew(KEY_INPUT_LEFT))
+	{
+		pos_.z -= 1.0f;
+	}
+	if (ins.IsNew(KEY_INPUT_RIGHT))
+	{
+		pos_.z += 1.0f;
+	}
+	pos_ = { 0.0f,pos_.y,pos_.z };*/
 
-	targetPos_ = { 0.0f,100.0f,100.0f };
+	pos_ = { 0.0f,400.0f,100.0f };
+
+	targetPos_ = { 0.0f,10.0f,500.0f };
 
 	//	何もしない
 }
