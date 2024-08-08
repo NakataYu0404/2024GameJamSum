@@ -11,6 +11,7 @@
 #include "../Object/Common/AnimationController.h"
 
 #include "../Object/Stage/Magma.h"
+#include "../Object/Stage/Stage.h"
 #include "GameScene.h"
 
 GameScene::GameScene(void)
@@ -52,6 +53,8 @@ void GameScene::Update(void)
 void GameScene::Draw(void)
 {
 	DrawFormatString(0, 0, 0xffffff, "Game");
+
+	Stage::GetInstance().Draw();
 
 	Timer::GetInstance().Draw();
 
