@@ -22,6 +22,7 @@ void Timer::Init(void)
 
 void Timer::Update(void)
 {
+	//時間計測
 	if (GetNowCount() - nowCount_ >= SEC_2_MILLISEC)
 	{
 		nowCount_ = GetNowCount();
@@ -31,7 +32,8 @@ void Timer::Update(void)
 
 void Timer::Draw(void)
 {
-
+	//デバッグ
+	DrawFormatString(0, 16, IsTimeOver() ? 0xffffff : 0xff0000, "%d", TIME_LIMIT.Sec - counter_.Sec);
 }
 
 void Timer::Release(void)
@@ -42,6 +44,11 @@ void Timer::ResetTimer(void)
 {
 	nowCount_ = GetNowCount();
 	counter_ = COUNTER_ZERO;
+}
+
+bool Timer::IsTimeOver(void)
+{
+	return counter_.Sec >= TIME_LIMIT.Sec;
 }
 
 void Timer::CreateInstance(void)

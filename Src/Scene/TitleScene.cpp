@@ -3,6 +3,7 @@
 #include <DxLib.h>
 #include "../Application.h"
 #include "../Utility/AsoUtility.h"
+#include "../Manager/Timer.h"
 #include "../Manager/SceneManager.h"
 #include "../Manager/ResourceManager.h"
 #include "../Manager/InputManager.h"
@@ -20,7 +21,7 @@ TitleScene::~TitleScene(void)
 
 void TitleScene::Init(void)
 {
-
+	Timer::GetInstance().ResetTimer();
 }
 
 void TitleScene::Update(void)
@@ -29,10 +30,11 @@ void TitleScene::Update(void)
 	{
 		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME);
 	}
-
 }
 
 void TitleScene::Draw(void)
 {
 	DrawFormatString(0, 0, 0xffffff, "Title");
+
+	Timer::GetInstance().Draw();
 }

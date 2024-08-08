@@ -12,6 +12,9 @@ public:
 	//カウンター初期化
 	static constexpr DATEDATA COUNTER_ZERO = { 0,0,0,0,0,0 };
 
+	//制限時間
+	static constexpr DATEDATA TIME_LIMIT = { 0,0,0,0,0,60 };
+
 	//一秒のミリ秒変換
 	static constexpr int SEC_2_MILLISEC = 1000;
 
@@ -26,6 +29,9 @@ public:
 	//タイマーのリセット
 	void ResetTimer(void);
 
+	//制限時間超過判定を返す
+	bool IsTimeOver(void);
+
 	//シングルトン化
 	//--------------------------
 	//外部から静的にインスタンスの生成をする
@@ -34,6 +40,9 @@ public:
 	//外部でインスタンスを利用可能とするために、
 	//インスタンスを返す関数を作る
 	static Timer& GetInstance(void);
+
+	//インスタンスの破棄
+	void Destroy(void);
 
 private:
 	//シングルトン化
@@ -46,9 +55,6 @@ private:
 
 	//コピーコンストラクタを利用できないようにする
 	Timer(const Timer& ins);
-
-	//インスタンスの破棄
-	void Destroy(void);
 
 	//メンバー変数
 	//--------------------------
