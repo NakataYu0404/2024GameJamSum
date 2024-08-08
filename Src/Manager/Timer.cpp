@@ -23,12 +23,18 @@ void Timer::Init(void)
 	//âÊëúì«Ç›çûÇ›
 	timerFrameImg_ = LoadGraph((Application::PATH_IMAGE + "TimerFrame.png").c_str());
 
-	LoadDivGraph((Application::PATH_IMAGE + "Number.png").c_str(), 10, 10, 1, NUMBER_SIZE_X, NUMBER_SIZE_Y, numberImg_);
+	LoadDivGraph((Application::PATH_IMAGE + "Number.png").c_str()
+		, NUMBER_ALL_DIV
+		, NUMBER_X_DIV
+		, NUMBER_Y_DIV
+		, NUMBER_SIZE_X
+		, NUMBER_SIZE_Y
+		, numberImg_);
 
 	//ïœêîÇÃèâä˙âª
 	counter_ = COUNTER_ZERO;
 	nowCount_ = GetNowCount();
-	framePos_ = { Application::SCREEN_SIZE_X / 2, FRAME_SIZE_Y / 2 };
+	framePos_ = { Application::SCREEN_SIZE_X / 2, FRAME_SIZE_Y / 2 + FRAME_SHIFT_POS_Y };
 }
 
 void Timer::Update(void)
@@ -44,11 +50,11 @@ void Timer::Update(void)
 void Timer::Draw(void)
 {
 	//ògÇÃï`âÊ
-	DrawRotaGraph(framePos_.x, framePos_.y + 10, 1.0, 0.0, timerFrameImg_, true);
+	DrawRotaGraph(framePos_.x, framePos_.y, 1.0, 0.0, timerFrameImg_, true);
 
 	//êîéöÇÃï`âÊ
-	DrawRotaGraph(framePos_.x, framePos_.y + 10, 1.0, 0.0, numberImg_[(TIME_LIMIT.Sec - counter_.Sec) / 10], true);
-	DrawRotaGraph(framePos_.x  + NUMBER_SIZE_X, framePos_.y + 10, 1.0, 0.0, numberImg_[(TIME_LIMIT.Sec - counter_.Sec) % 10], true);
+	DrawRotaGraph(framePos_.x, framePos_.y, 1.0, 0.0, numberImg_[(TIME_LIMIT.Sec - counter_.Sec) / 10], true);
+	DrawRotaGraph(framePos_.x  + NUMBER_SIZE_X, framePos_.y, 1.0, 0.0, numberImg_[(TIME_LIMIT.Sec - counter_.Sec) % 10], true);
 }
 
 void Timer::Release(void)

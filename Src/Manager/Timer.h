@@ -26,9 +26,17 @@ public:
 	static constexpr int FRAME_SIZE_X = 200;
 	static constexpr int FRAME_SIZE_Y = 80;
 
-	//数字フォントサイズ
+	//フレームの座標をずらす
+	static constexpr int FRAME_SHIFT_POS_Y = 10;
+
+	//数字画像サイズ
 	static constexpr int NUMBER_SIZE_X = 50;
 	static constexpr int NUMBER_SIZE_Y = 80;
+
+	//数字画像の分割数
+	static constexpr int NUMBER_X_DIV = 10;
+	static constexpr int NUMBER_Y_DIV = 1;
+	static constexpr int NUMBER_ALL_DIV = NUMBER_X_DIV * NUMBER_Y_DIV;
 
 	//関数
 	//--------------------
