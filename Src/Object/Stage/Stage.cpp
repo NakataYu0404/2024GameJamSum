@@ -28,6 +28,8 @@ Stage& Stage::GetInstance(void)
 
 void Stage::Destory(void)
 {
+	Release();
+
 	delete instance_;
 	instance_ = nullptr;
 }

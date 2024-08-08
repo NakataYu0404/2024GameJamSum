@@ -20,6 +20,8 @@ public:
 
 	static Stage& GetInstance(void);
 
+	void Destory(void);
+
 private:
 
 	int ModelHandle;
@@ -38,7 +40,6 @@ private:
 	//コピーコンストラスタ
 	Stage(const Stage& ins);
 
-	void Destory(void);
 
 };
 
