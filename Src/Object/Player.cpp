@@ -12,30 +12,16 @@ Player::Player() : input_(InputManager::GetInstance())
 {
 	transform_ = make_shared<Transform>();
 	transform_->pos = { 0.0f,0.0f,0.0f };
-
-	sphere_ = make_shared<Sphere>(transform_);
-	sphere_->SetRadius(100.0f);
-
-	state_ = State::Move;
-
-	transform_->modelId = MV1LoadModel("PlayerData/Model/X bot.mv1");
-	transform_->quaRot = Quaternion();
-	transform_->quaRotLocal = Quaternion::Euler({ 0.0f,AsoUtility::Deg2RadF(180.0f),0.0f });
+	Init();
+	InitModel();
 }
 
 Player::Player(const VECTOR& initPos) : input_(InputManager::GetInstance())
 {
 	transform_ = make_shared<Transform>();
 	transform_->pos = initPos;
-
-	sphere_ = make_shared<Sphere>(transform_);
-	sphere_->SetRadius(100.0f);
-
-	state_ = State::Move;
-
-	transform_->modelId = MV1LoadModel("PlayerData/Model/X bot.mv1");
-	transform_->quaRot = Quaternion();
-	transform_->quaRotLocal = Quaternion::Euler({ 0.0f,AsoUtility::Deg2RadF(180.0f),0.0f });
+	Init();
+	InitModel();
 }
 
 Player::~Player()
@@ -44,14 +30,20 @@ Player::~Player()
 
 void Player::Init()
 {
+	sphere_ = make_shared<Sphere>(transform_);
+	sphere_->SetRadius(100.0f);
+	state_ = State::Move;
+}
+
+void Player::InitModel()
+{
+	transform_->modelId = MV1LoadModel("PlayerData/Model/X bot.mv1");
+	transform_->quaRot = Quaternion();
+	transform_->quaRotLocal = Quaternion::Euler({ 0.0f,AsoUtility::Deg2RadF(180.0f),0.0f });
 }
 
 void Player::Update()
 {
-	if (input_.IsNew(KEY_INPUT_1)) {
-		moveDir_ = VScale(moveDir_, -1);
-	}
-
 	(this->*updateFunc_)();
 
 	CollisionStage();
@@ -72,7 +64,7 @@ void Player::Draw()
 void Player::DebugDraw()
 {
 	DrawSphere3D(transform_->pos, sphere_->GetRadius(), 10, 0xffffff, 0xffffff, false);
-	VECTOR StageCenterPos = { 0.0f,0.0f,0.0f };
+	VECTOR StageCenterPos = { 0.0f,0.0f,100.0f };
 	float StageRadius = 700.0f;
 	DrawSphere3D(StageCenterPos, StageRadius, 10, 0xffffff, 0xffffff, false);
 	DrawFormatString(0, 32, 0xffffff, "%f", speed_);
@@ -91,11 +83,6 @@ const float Player::GetMoveAcc()
 void Player::SetMoveDir(const VECTOR& dir)
 {
 	moveDir_ = dir;
-}
-
-void Player::SwitchMoveDir()
-{
-	moveDir_ = VScale(moveDir_, -1.0f);
 }
 
 void Player::UpdateMove()
@@ -120,54 +107,30 @@ void Player::UpdateFall()
 	Gravity();
 }
 
-void Player::ProcessKnockBack(const VECTOR& dir, float pow)
+const bool& Player::IsInputMove()
 {
-	knockBackDir_ = dir;
-	KnockBackPow_ = pow;
-	updateFunc_ = &Player::UpdateKnockBack;
-	state_ = State::KnockBack;
-
-	moveAcc_ = 0.0f;
-}
-
-void Player::KnockBack()
-{
-	float deltaTime = SceneManager::GetInstance().GetDeltaTime();
-
-	// 移動
-	transform_->pos = VAdd(transform_->pos, VScale(knockBackDir_, KnockBackPow_));
-
-	// 減速のスピード
-	float speed = 1.5f;
-
-	// 減速
-	KnockBackPow_ -= speed * 0.15f * deltaTime;
-	if (KnockBackPow_ < 0.0f) {
-		KnockBackPow_ = 0.0f;
-		updateFunc_ = &Player::UpdateMove;
-		state_ = State::Move;
-	}
+	// 仮(パッド対応)
+	if (input_.IsNew(KEY_INPUT_W)) return true;
+	if (input_.IsNew(KEY_INPUT_A)) return true;
+	if (input_.IsNew(KEY_INPUT_S)) return true;
+	if (input_.IsNew(KEY_INPUT_D)) return true;
+	return false;
 }
 
 void Player::CheckMoveDirection()
 {
-
-	isHitMove_ = false;
 	if (input_.IsNew(KEY_INPUT_W)) {
 		moveDir_ = { 0.0f,0.0f,1.0f };
-		isHitMove_ = true;
 	}
 	if (input_.IsNew(KEY_INPUT_A)) {
 		moveDir_ = { -1.0f,0.0f,0.0f };
-		isHitMove_ = true;
+		moveAcc_ = 0.0f;
 	}
 	if (input_.IsNew(KEY_INPUT_S)) {
 		moveDir_ = { 0.0f,0.0f,-1.0f };
-		isHitMove_ = true;
 	}
 	if (input_.IsNew(KEY_INPUT_D)) {
 		moveDir_ = { 1.0f,0.0f,0.0f };
-		isHitMove_ = true;
 	}
 }
 
@@ -180,25 +143,67 @@ void Player::Move(const VECTOR& dir, float speed)
 {
 	// 加速処理
 	float deltaTime = SceneManager::GetInstance().GetDeltaTime();
-	if (isHitMove_){
+	if (IsInputMove()){
 		moveAcc_ += speed * deltaTime;
-		if (moveAcc_ > 1) {
-			moveAcc_ = 1;
+		if (moveAcc_ > MOVE_ACC_MAX) {
+			moveAcc_ = MOVE_ACC_MAX;
 		}
 	}
 	transform_->pos = VAdd(transform_->pos, VScale(moveDir_, moveAcc_));
 
 	// 減速処理
-	moveAcc_ -= speed * 0.15f * deltaTime;
+	moveAcc_ -= speed * 0.05f * deltaTime;
 	if (moveAcc_ < 0.0f) {
 		moveAcc_ = 0.0f;
 		moveDir_ = { 0.0f,0.0f,0.0f };
 	}
 }
 
+void Player::ProcessKnockBack(const VECTOR& dir, float pow)
+{
+	knockBackDir_ = dir;
+	KnockBackPow_ = pow;
+	updateFunc_ = &Player::UpdateKnockBack;
+	state_ = State::KnockBack;
+	moveAcc_ = 0.0f;
+
+	// ノックバック完了時間
+	knockBackComTime_ = KnockBackPow_ / (KNOCKBACK_SPEED * 0.15);
+	knockBackTotalTime_ = 0.0f;
+}
+
+void Player::KnockBack()
+{
+	float deltaTime = SceneManager::GetInstance().GetDeltaTime();
+	knockBackTotalTime_ += deltaTime;
+
+	// 移動
+	transform_->pos = VAdd(transform_->pos, VScale(knockBackDir_, KnockBackPow_));
+
+	// 減速
+	KnockBackPow_ -= KNOCKBACK_SPEED * 0.15f * deltaTime;
+
+	// 移動切り替え可能処理
+	// 経過時間で遷移可能か決める(55パー)
+	if (knockBackTotalTime_ >= knockBackComTime_ * 0.55) {
+		CheckMoveDirection();
+		if (IsInputMove()) {
+			updateFunc_ = &Player::UpdateMove;
+			state_ = State::Move;
+		}
+	}
+
+	// 強制終了
+	if (KnockBackPow_ < 0.0f) {
+		KnockBackPow_ = 0.0f;
+		updateFunc_ = &Player::UpdateMove;
+		state_ = State::Move;
+	}
+}
+
 void Player::Gravity()
 {
-	if (state_ != State::Fall) return;
+	// if (state_ != State::Fall) return;
 
 	gravityTotalTime_ += SceneManager::GetInstance().GetDeltaTime();
 	transform_->pos.y += -0.5 * GRAVITY * gravityTotalTime_ * gravityTotalTime_;
@@ -206,11 +211,12 @@ void Player::Gravity()
 
 void Player::CollisionStage()
 {
-	VECTOR StageCenterPos = { 0.0f,0.0f,0.0f };
-	float StageRadius = 700.0f;
+	// ステージ情報
+	VECTOR StageCenterPos = { 0.0f,0.0f,100.0f };
+	float StageRadius = 2000.0f;
 
+	// 判定
 	float Distance = sqrtf(pow((StageCenterPos.x - transform_->pos.x), 2) + pow((StageCenterPos.z - transform_->pos.z), 2));
-
 	if (StageRadius < Distance) {
 		updateFunc_ = &Player::UpdateFall;
 		state_ = State::Fall;
@@ -219,7 +225,7 @@ void Player::CollisionStage()
 
 void Player::Rotation()
 {
-	if (!isHitMove_) return;
+	if (!IsInputMove()) return;
 
 	Quaternion cameraRot = SceneManager::GetInstance().GetCamera()->GetQuaRotOutX();
 	VECTOR cRot = cameraRot.PosAxis(moveDir_);
