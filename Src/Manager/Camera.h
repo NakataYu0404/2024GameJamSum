@@ -42,7 +42,6 @@ public:
 	{
 		NONE,
 		FIXED_POINT,
-		GAME_MODE,
 		SELF_SHOT,
 		FOLLOW,
 	};

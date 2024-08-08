@@ -53,7 +53,7 @@ void Stage::Init(void)
 	ModelHandle = MV1LoadModel((Application::PATH_MODEL+"stage.mv1").c_str());
 
 	// ‰æ–Ê‚É‰f‚éˆÊ’u‚É‚R‚cƒ‚ƒfƒ‹‚ðˆÚ“®
-	MV1SetPosition(ModelHandle, VGet(0.0f, 00.0f, 550.0f));
+	MV1SetPosition(ModelHandle, VGet(0.0f, 00.0f, 0.0f));
 	
 }
 
