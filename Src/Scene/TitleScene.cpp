@@ -48,7 +48,19 @@ void TitleScene::Update(void)
 	}
 }
 
-void TitleScene::Draw(void)
+//void TitleScene::Draw(void)
+//{
+//}
+
+void TitleScene::Draw3D(void)
+{
+}
+
+void TitleScene::Draw2D(void)
+{
+}
+
+void TitleScene::DrawUI(void)
 {
 	//フォント作成
 	int font;
@@ -71,4 +83,5 @@ void TitleScene::Draw(void)
 
 	//フォント削除
 	DeleteFontToHandle(font);
+
 }

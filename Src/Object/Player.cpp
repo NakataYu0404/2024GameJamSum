@@ -37,6 +37,7 @@ void Player::Init()
 
 void Player::InitModel()
 {
+	//	TODO:ResourceManagerを無視して勝手に読み込み始めないで下さい。
 	transform_->modelId = MV1LoadModel("PlayerData/Model/X bot.mv1");
 	transform_->quaRot = Quaternion();
 	transform_->quaRotLocal = Quaternion::Euler({ 0.0f,AsoUtility::Deg2RadF(180.0f),0.0f });
@@ -53,7 +54,7 @@ void Player::Update()
 void Player::Draw()
 {
 	// モデル座標補正
-	MV1SetPosition(transform_->modelId, VAdd(transform_->pos, MODEL_CORRECTION_POS));
+	MV1SetPosition(transform_->modelId, VAdd(transform_->pos, MODEL_CORRECTION_POS));	//	transform->localPosを実装した方が確実に直感的だと思います。
 
 	// モデル表示
 	MV1DrawModel(transform_->modelId);
@@ -119,6 +120,8 @@ const bool& Player::IsInputMove()
 
 void Player::CheckMoveDirection()
 {
+	//	Checkと書いてあるのに何かを確認する関数ではないですね。
+
 	if (input_.IsNew(KEY_INPUT_W)) {
 		moveDir_ = { 0.0f,0.0f,1.0f };
 	}
@@ -134,6 +137,7 @@ void Player::CheckMoveDirection()
 	}
 }
 
+//	全く必要となっていない関数です。
 void Player::ProcessMove()
 {
 	Move(moveDir_, MOVE_SPEED);
@@ -141,6 +145,9 @@ void Player::ProcessMove()
 
 void Player::Move(const VECTOR& dir, float speed)
 {
+	//	まず、moveAcc_をX軸とZ軸、それぞれに実装しないと、滑る感じはおそらく表現できません。
+	//	この実装だと、右にかかっていたはずの慣性が上キーを押した瞬間上にかかるはずです。
+
 	// 加速処理
 	float deltaTime = SceneManager::GetInstance().GetDeltaTime();
 	if (IsInputMove()){
@@ -174,6 +181,8 @@ void Player::ProcessKnockBack(const VECTOR& dir, float pow)
 
 void Player::KnockBack()
 {
+	//	ノックバック中に操作できなくする理由を感じられません。ノックバックなどでつるつる滑る中移動しようというゲーム性なのに…
+
 	float deltaTime = SceneManager::GetInstance().GetDeltaTime();
 	knockBackTotalTime_ += deltaTime;
 
@@ -211,6 +220,8 @@ void Player::Gravity()
 
 void Player::CollisionStage()
 {
+	//	CollisionManagerを無視してまでこう実装する意義を感じません。Stageの大きさを変更することになった場合、どう対応するおつもりですか？もう実際Stageは真円ではなくなりました。
+
 	// ステージ情報
 	VECTOR StageCenterPos = { 0.0f,0.0f,100.0f };
 	float StageRadius = 2000.0f;

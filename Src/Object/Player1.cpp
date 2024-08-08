@@ -4,6 +4,10 @@
 
 void Player1::InitModel()
 {
+    //  Playerでも記述されていませんでしたか？
+    //  あと、Dataフォルダがあるのに同じ階層に勝手にPlayerDataとかいうわけわからんフォルダを作らないで下さい。邪魔です。Data/Model/Playerに移動させました。
+    //  あと、ResourceManagerを使って下さい。
+    //  あと、ファイル名にスペースを用いないでください。
 	transform_->modelId = MV1LoadModel("PlayerData/Model/X bot.mv1");
 	transform_->quaRot = Quaternion();
 	transform_->quaRotLocal = Quaternion::Euler({ 0.0f,AsoUtility::Deg2RadF(180.0f),0.0f });

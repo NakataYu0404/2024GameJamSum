@@ -19,9 +19,13 @@ public:
 	virtual void Update(void) = 0;
 
 	//	•`‰æˆ—
-	virtual void Draw(void) = 0;
+	virtual void Draw(void);
 
 protected:
+
+	virtual void Draw3D(void) = 0;
+	virtual void Draw2D(void) = 0;
+	virtual void DrawUI(void) = 0;
 
 	//	ƒŠƒ\[ƒXŠÇ—
 	ResourceManager& resMng_;

@@ -19,7 +19,7 @@ public:
 
 	void Init(void) override;
 	void Update(void) override;
-	void Draw(void) override;
+	//void Draw(void) override;
 
 private:
 	//タイトルロゴの大きさ
@@ -31,6 +31,10 @@ private:
 
 	//タイトルロゴの基本位置
 	static constexpr int TITLE_LOGO_DEFAULT_POS_Y = 300;
+
+	void Draw3D(void) override;
+	void Draw2D(void) override;
+	void DrawUI(void) override;
 
 	//タイトルロゴ
 	int titleLogoImg_[TITLE_LOGO_NUM];

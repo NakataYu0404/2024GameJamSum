@@ -29,6 +29,7 @@ public:
     static constexpr float KNOCKBACK_SPEED = 1.5;
 
     enum class State {
+        //  ノックバックをStateで分ける必要が全く感じられません。
         Move,
         KnockBack,
         Fall,

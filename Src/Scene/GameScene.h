@@ -1,10 +1,13 @@
 #pragma once
-#include "SceneBase.h"
-#include "../Object/Common/Transform.h"
 #include <memory>
+#include <vector>
+#include "../Object/Common/Transform.h"
+#include "SceneBase.h"
 
 class SceneManager;
 class AnimationController;
+
+class Stage;
 class Magma;
 
 class Player;
@@ -37,7 +40,7 @@ public:
 
 	void Init(void) override;
 	void Update(void) override;
-	void Draw(void) override;
+	//void Draw(void) override;
 
 private:
 
@@ -45,16 +48,19 @@ private:
 	void UpdateInGame(void);
 	void UpdateOver(void);
 
-	void Draw3D(void);
-	void Draw2D(void);
-	void DrawUI(void);
+	void Draw3D(void) override;
+	void Draw2D(void) override;
+	void DrawUI(void) override;
 
 
 	//	今、ゲームシーン内のどこか
 	InSceneType inTypeGame_;
 
+	std::shared_ptr<Stage> stage_;
 	std::shared_ptr<Magma> magma_;
 
-	vector <shared_ptr<Player>> players_;
-	void Collision();
+	std::vector<shared_ptr<Player>> players_;
+
+	////	折角用意したCollisionManagerを無視してゲームシーンに書かないで下さい。
+	//	void Collision();
 };

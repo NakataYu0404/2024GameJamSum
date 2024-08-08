@@ -19,4 +19,7 @@ void SceneBase::Update(void)
 
 void SceneBase::Draw(void)
 {
+	Draw3D();
+	Draw2D();
+	DrawUI();
 }
