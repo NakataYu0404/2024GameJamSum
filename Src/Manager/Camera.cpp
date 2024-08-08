@@ -124,6 +124,10 @@ void Camera::ChangeMode(MODE mode)
 	switch (mode_)
 	{
 	case Camera::MODE::FIXED_POINT:
+		pos_ = AsoUtility::VECTOR_ZERO;
+		targetPos_ = AsoUtility::VECTOR_ZERO;
+		break;
+	case Camera::MODE::GAME_MODE:
 		break;
 	case Camera::MODE::FOLLOW:
 		break;
