@@ -216,3 +216,6 @@ void AnimationController::ChangeModel(int modelId)
 {
 	modelId_ = modelId;
 }
+
+//	制作者：中田
+//	他プロジェクトに持ち出し禁止！

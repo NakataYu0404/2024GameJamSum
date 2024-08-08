@@ -90,3 +90,5 @@ void VSMaterial::Clear(void)
 	constBufs_.clear();
 }
 
+//	制作者：中田
+//	他プロジェクトに持ち出し禁止！

@@ -90,3 +90,6 @@ VS_OUTPUT main(VS_INPUT VSInput)
 	// 出力パラメータを返す
 	return ret;
 }
+
+	//	制作者：中田
+	//	他プロジェクトに持ち出し禁止！

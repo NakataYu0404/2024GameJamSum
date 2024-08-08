@@ -35,3 +35,6 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 	//srcCol.xyz *= (-dotNormLight + 1.0f);
 	return srcCol;
 }
+
+	//	制作者：中田
+	//	他プロジェクトに持ち出し禁止！

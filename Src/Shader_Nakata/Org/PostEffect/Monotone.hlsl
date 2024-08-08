@@ -12,3 +12,6 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 	srcCol.rgb = srcCol.rgb * color.rgb;
 	return srcCol;
 }
+
+	//	制作者：中田
+	//	他プロジェクトに持ち出し禁止！

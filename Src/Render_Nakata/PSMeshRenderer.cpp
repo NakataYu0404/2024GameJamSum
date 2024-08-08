@@ -110,3 +110,6 @@ void PSMeshRenderer::MakeVertexs(void)
 	indexes_[cnt++] = 2;
 
 }
+
+//	制作者：中田
+//	他プロジェクトに持ち出し禁止！
