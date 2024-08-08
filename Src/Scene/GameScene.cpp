@@ -28,8 +28,6 @@ void GameScene::Init(void)
 
 	magma_ = std::make_shared<Magma>();
 	magma_->Init();
-
-	Timer::GetInstance().ResetTimer();
 }
 
 void GameScene::Update(void)
@@ -61,14 +59,17 @@ void GameScene::Draw(void)
 
 void GameScene::UpdateReady(void)
 {
-	//	if(€”õŠ®—¹)
-	//	{
-	//		inTypeGame_ = InSceneType::INGAME;
-	//	}
+	if (InputManager::GetInstance().IsTrgDown(KEY_INPUT_NUMPAD0))
+	{
+		inTypeGame_ = InSceneType::INGAME;
+		Timer::GetInstance().ResetTimer();
+	}
 }
 
 void GameScene::UpdateInGame(void)
 {
+	magma_->Update();
+
 	//	if(Œˆ’…)
 	//	{
 	//		inTypeGame_ = InSceneType::GAMEOVER;
@@ -77,15 +78,15 @@ void GameScene::UpdateInGame(void)
 
 void GameScene::UpdateOver(void)
 {
+
 }
 
 void GameScene::Draw3D(void)
 {
 	//	3D‚Ì‚à‚Ì•`‰æ
-	Stage::GetInstance().Draw();
+	//Stage::GetInstance().Draw();
 
 	magma_->Draw();
-
 }
 
 void GameScene::Draw2D(void)
@@ -97,6 +98,19 @@ void GameScene::Draw2D(void)
 void GameScene::DrawUI(void)
 {
 	//	UI•`‰æ
-	Timer::GetInstance().Draw();
+	switch (inTypeGame_)
+	{
+	case GameScene::InSceneType::READY:
+		break;
+	case GameScene::InSceneType::INGAME:
+		Timer::GetInstance().Draw();
+		break;
+	case GameScene::InSceneType::GAMEOVER:
+		break;
+	default:
+		break;
+	}
+
+
 
 }

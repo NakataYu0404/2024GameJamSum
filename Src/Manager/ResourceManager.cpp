@@ -39,6 +39,9 @@ void ResourceManager::Init(void)
 
 
 	//	ƒ‚ƒfƒ‹
+	res = new RES(RES_T::MODEL, PATH_MDL + "-1");
+	resourcesMap_.emplace(SRC::MDL_NONE, res);
+
 	res = new RES(RES_T::MODEL, PATH_MDL + "Magma/magma.mv1");
 	resourcesMap_.emplace(SRC::MDL_MAGMA, res);
 

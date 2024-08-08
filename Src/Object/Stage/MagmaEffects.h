@@ -1,12 +1,10 @@
 #pragma once
 #include <memory>
-#include <vector>
 #include "../ActorBase.h"
 
 class EffectController;
-class MagmaEffects;
 
-class Magma : public ActorBase
+class MagmaEffects : public ActorBase
 {
 public:
 
@@ -16,17 +14,19 @@ public:
 		MAGMA_JUMP,
 	};
 
-	Magma();
-	~Magma();
+	MagmaEffects(VECTOR magmaPos);
+	~MagmaEffects();
 
 	void Init(void) override;
 	void Update(void) override;
 	void Draw(void) override;
 	void SetParam(void) override;
 
-
+	
 private:
 
-	std::vector<std::shared_ptr<MagmaEffects>> magmaEffects_;
+	std::shared_ptr<EffectController> effectController_;
+
+	VECTOR pos_;
 };
 

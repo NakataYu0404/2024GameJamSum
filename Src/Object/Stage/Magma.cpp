@@ -3,6 +3,7 @@
 #include "../../Manager/ResourceManager.h"
 #include "../../Manager/SceneManager.h"
 #include "../Common/EffectController.h"
+#include "MagmaEffects.h"
 #include "Magma.h"
 
 Magma::Magma()
@@ -16,21 +17,29 @@ Magma::~Magma()
 void Magma::Init(void)
 {
 	transform_ = std::make_shared<Transform>();
-	effectController_ = std::make_shared<EffectController>();
 
 	auto& resIns = resMng_.GetInstance();
 
 	transform_->SetModel(resIns.LoadModelDuplicate(ResourceManager::SRC::MDL_MAGMA));
 
-	effectController_->Add((int)EFFECT_TYPE::MAGMA_JUMP, resIns.Load(ResourceManager::SRC::EFF_MAGMAJUMP).handleId_);
-	effectController_->Add((int)EFFECT_TYPE::MAGMA_BUBBLE, resIns.Load(ResourceManager::SRC::EFF_MAGMABUBBLE).handleId_);
-
 	SetParam();
+
+	VECTOR pos = transform_->pos;
+
+	magmaEffects_.push_back(std::make_shared<MagmaEffects>(pos));
+	for (auto m : magmaEffects_)
+	{
+		m->Init();
+	}
+
 }
 
 void Magma::Update(void)
 {
-	//effectController_->Play()
+	for (auto m : magmaEffects_)
+	{
+		m->Update();
+	}
 }
 
 void Magma::Draw(void)
@@ -40,9 +49,9 @@ void Magma::Draw(void)
 
 void Magma::SetParam(void)
 {
-	transform_->pos = { 0.0f,-200.0f,1000.0f };
+	transform_->pos = { 0.0f,-200.0f,1500.0f };
 	transform_->quaRot = Quaternion();
-	transform_->scl = { 1.0f,1.0f,1.0f };
+	transform_->scl = { 1.4f,1.0f,1.4f };
 
 	transform_->Update();
 }
