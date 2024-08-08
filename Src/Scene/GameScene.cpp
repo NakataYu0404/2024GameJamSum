@@ -54,11 +54,9 @@ void GameScene::Draw(void)
 {
 	DrawFormatString(0, 0, 0xffffff, "Game");
 
-	Timer::GetInstance().Draw();
-
-	magma_->Draw();
-	
-	Stage::GetInstance().Draw();
+	Draw3D();
+	Draw2D();
+	DrawUI();
 }
 
 void GameScene::UpdateReady(void)
@@ -79,4 +77,26 @@ void GameScene::UpdateInGame(void)
 
 void GameScene::UpdateOver(void)
 {
+}
+
+void GameScene::Draw3D(void)
+{
+	//	3DÇÃÇ‡ÇÃï`âÊ
+	Stage::GetInstance().Draw();
+
+	magma_->Draw();
+
+}
+
+void GameScene::Draw2D(void)
+{
+	//	3Dè„Ç…ï`âÊÇµÇΩÇ¢2DÇÃÇ‡ÇÃï`âÊ
+
+}
+
+void GameScene::DrawUI(void)
+{
+	//	UIï`âÊ
+	Timer::GetInstance().Draw();
+
 }
