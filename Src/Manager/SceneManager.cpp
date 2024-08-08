@@ -225,9 +225,11 @@ void SceneManager::DoChangeScene(SCENE_ID sceneId)
 	{
 	case SCENE_ID::TITLE:
 		scene_ = new TitleScene();
+		camera_->ChangeMode(Camera::MODE::FIXED_POINT);
 		break;
 	case SCENE_ID::GAME:
 		scene_ = new GameScene();
+		camera_->ChangeMode(Camera::MODE::GAME_MODE);
 		break;
 	}
 

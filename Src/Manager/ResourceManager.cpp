@@ -43,6 +43,11 @@ void ResourceManager::Init(void)
 	resourcesMap_.emplace(SRC::MDL_MAGMA, res);
 
 	//	エフェクト
+	res = new RES(RES_T::EFFEKSEER, PATH_EFF + "Magma_Suekane/Magma01_Suekane.efkefc");
+	resourcesMap_.emplace(SRC::EFF_MAGMAJUMP, res);
+
+	res = new RES(RES_T::EFFEKSEER, PATH_EFF + "MagmaBubble_Suekane/MagmaBubble_Suekane.efkefc");
+	resourcesMap_.emplace(SRC::EFF_MAGMABUBBLE, res);
 
 
 	//	サウンド
