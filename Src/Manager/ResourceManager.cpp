@@ -27,6 +27,8 @@ void ResourceManager::Init(void)
 	static std::string PATH_IMG = Application::PATH_IMAGE;
 	static std::string PATH_MDL = Application::PATH_MODEL;
 	static std::string PATH_EFF = Application::PATH_EFFECT;
+	static std::string PATH_SND = Application::PATH_SOUND;
+	static std::string PATH_SHA = Application::PATH_SHADER;
 
 	Resource* res;
 	
