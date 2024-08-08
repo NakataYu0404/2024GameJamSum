@@ -4,6 +4,7 @@
 #include "../Manager/SceneManager.h"
 #include "../Utility/AsoUtility.h"
 #include "Common/CollisionManager.h"
+#include "../Manager/Camera.h"
 
 VECTOR VECTOR_ZERO = { 0.0f,0.0f,0.0f };
 
@@ -47,24 +48,24 @@ void Player::Init()
 
 void Player::Update()
 {
-	CheckMoveDirection();
-
 	if (input_.IsNew(KEY_INPUT_1)) {
 		moveDir_ = VScale(moveDir_, -1);
 	}
 
-	ProcessMove();
-
+	(this->*updateFunc_)();
 
 	CollisionStage();
-	Gravity();
 	transform_->Update();
 }
 
 void Player::Draw()
 {
+	// モデル座標補正
+	MV1SetPosition(transform_->modelId, VAdd(transform_->pos, MODEL_CORRECTION_POS));
 
+	// モデル表示
 	MV1DrawModel(transform_->modelId);
+
 	DebugDraw();
 }
 
@@ -82,9 +83,70 @@ const VECTOR& Player::GetMoveDir()
 	return moveDir_;
 }
 
+const float Player::GetMoveAcc()
+{
+	return moveAcc_;
+}
+
 void Player::SetMoveDir(const VECTOR& dir)
 {
 	moveDir_ = dir;
+}
+
+void Player::SwitchMoveDir()
+{
+	moveDir_ = VScale(moveDir_, -1.0f);
+}
+
+void Player::UpdateMove()
+{
+	// 移動
+	CheckMoveDirection();
+	ProcessMove();
+
+	// 回転
+	Rotation();
+}
+
+void Player::UpdateKnockBack()
+{
+	// ノックバック
+	KnockBack();
+}
+
+void Player::UpdateFall()
+{
+	// 落下
+	Gravity();
+}
+
+void Player::ProcessKnockBack(const VECTOR& dir, float pow)
+{
+	knockBackDir_ = dir;
+	KnockBackPow_ = pow;
+	updateFunc_ = &Player::UpdateKnockBack;
+	state_ = State::KnockBack;
+
+	moveAcc_ = 0.0f;
+}
+
+void Player::KnockBack()
+{
+	float deltaTime = SceneManager::GetInstance().GetDeltaTime();
+
+	// 移動
+	transform_->pos = VAdd(transform_->pos, VScale(knockBackDir_, KnockBackPow_));
+
+	// 減速のスピード
+	float speed = 1.5f;
+
+	// 減速
+	KnockBackPow_ -= speed * 0.15f * deltaTime;
+	if (KnockBackPow_ < 0.0f) {
+		KnockBackPow_ = 0.0f;
+		updateFunc_ = &Player::UpdateMove;
+		state_ = State::Move;
+	}
 }
 
 void Player::CheckMoveDirection()
@@ -150,6 +212,21 @@ void Player::CollisionStage()
 	float Distance = sqrtf(pow((StageCenterPos.x - transform_->pos.x), 2) + pow((StageCenterPos.z - transform_->pos.z), 2));
 
 	if (StageRadius < Distance) {
+		updateFunc_ = &Player::UpdateFall;
 		state_ = State::Fall;
 	}
+}
+
+void Player::Rotation()
+{
+	if (!isHitMove_) return;
+
+	Quaternion cameraRot = SceneManager::GetInstance().GetCamera()->GetQuaRotOutX();
+	VECTOR cRot = cameraRot.PosAxis(moveDir_);
+
+	float deltaTime = SceneManager::GetInstance().GetDeltaTime();
+	float comSec = ROT_COM_SEC / deltaTime;
+
+	Quaternion goalQuaRot = Quaternion::LookRotation(cRot);
+	transform_->quaRot = Quaternion::Slerp(transform_->quaRot, goalQuaRot, comSec);
 }
