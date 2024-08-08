@@ -22,7 +22,7 @@
 #include "../Object/Common/CollisionManager.h"
 #include "../Object/Common/Sphere.h"
 
-GameScene::GameScene(void)
+GameScene::GameScene(void) : colMng_(CollisionManager::GetInstance())
 {
 	//	プレイヤーを複数実装する場合、Playerのコンストラクタ等でプレイヤー番号を渡せば別クラスを作る必要がありません。機能も同じですし。
 	//	プレイヤー毎の初期座標はPlayer1,2でなく結局Playerのコンストラクタで決めている所を見るに完全な冗長であると思います。
@@ -37,10 +37,31 @@ GameScene::~GameScene(void)
 
 void GameScene::Init(void)
 {
+	colMng_.Init();
+
 	inTypeGame_ = InSceneType::READY;
+	for (int i = 0; i < PLAYERNUM_MAX; i++)
+	{
+		players_.push_back(make_shared<Player>(i));
+	}
+	for (auto& p : players_)
+	{
+		p->Init();
+		colMng_.Add(p);
+	}
+
+	for (auto& p : players_)
+	{
+		for (auto& a : players_)
+		{
+			p->SetPlayers(a);
+		}
+	}
 
 	stage_ = std::make_shared<Stage>();
 	stage_->Init();
+
+	colMng_.Add(stage_);
 
 	magma_ = std::make_shared<Magma>();
 	magma_->Init();
@@ -63,9 +84,6 @@ void GameScene::Update(void)
 		break;
 	}
 
-	//for (auto& p : players_) {
-	//	p->Update();
-	//}
 }
 
 //void GameScene::Draw(void)
@@ -90,10 +108,10 @@ void GameScene::Draw3D(void)
 	stage_->Draw();
 	magma_->Draw();
 
-	//for (auto& p : players_) 
-	//{
-	//	p->Draw();
-	//}
+	for (auto& p : players_) 
+	{
+		p->Draw();
+	}
 
 }
 
@@ -125,7 +143,9 @@ void GameScene::DrawUI(void)
 
 void GameScene::UpdateReady(void)
 {
-	if (InputManager::GetInstance().IsTrgDown(KEY_INPUT_NUMPAD0))
+	auto& input = InputManager::GetInstance();
+
+	if (input.IsTrgDown(KEY_INPUT_SPACE) || input.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD1,InputManager::JOYPAD_BTN::DOWN))
 	{
 		inTypeGame_ = InSceneType::INGAME;
 		Timer::GetInstance().ResetTimer();
@@ -135,6 +155,14 @@ void GameScene::UpdateReady(void)
 void GameScene::UpdateInGame(void)
 {
 	magma_->Update();
+
+	for (auto& p : players_)
+	{
+		p->Update();
+	}
+
+	colMng_.Update();
+
 
 	//	if(決着)
 	//	{	
@@ -147,7 +175,8 @@ void GameScene::UpdateInGame(void)
 
 void GameScene::UpdateOver(void)
 {
-	if (InputManager::GetInstance().IsTrgDown(KEY_INPUT_NUMPAD0))
+	auto& input = InputManager::GetInstance();
+	if (InputManager::GetInstance().IsTrgDown(KEY_INPUT_SPACE) || input.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD1, InputManager::JOYPAD_BTN::DOWN))
 	{
 		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::TITLE);
 	}

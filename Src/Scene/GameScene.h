@@ -5,6 +5,7 @@
 #include "SceneBase.h"
 
 class SceneManager;
+class CollisionManager;
 class AnimationController;
 
 class Stage;
@@ -31,6 +32,8 @@ public:
 		//	ゲーム終了演出シーン
 		GAMEOVER,
 	};
+
+	static constexpr int PLAYERNUM_MAX = 4;
 
 	//	コンストラクタ
 	GameScene(void);
@@ -60,6 +63,10 @@ private:
 	std::shared_ptr<Magma> magma_;
 
 	std::vector<shared_ptr<Player>> players_;
+
+	//	シングルトン参照
+	CollisionManager& colMng_;
+
 
 	////	折角用意したCollisionManagerを無視してゲームシーンに書かないで下さい。
 	//	void Collision();

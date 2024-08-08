@@ -49,12 +49,15 @@ void ResourceManager::Init(void)
 	res = new RES(RES_T::MODEL, PATH_MDL + "Stage/Magma/magma.mv1");
 	resourcesMap_.emplace(SRC::MDL_MAGMA, res);
 
+	res = new RES(RES_T::MODEL, PATH_MDL + "Player/ball.mv1");
+	resourcesMap_.emplace(SRC::MDL_PLAYER_BALL1, res);
+
 	//	エフェクト
 	res = new RES(RES_T::EFFEKSEER, PATH_EFF + "Magma_Suekane/Magma01_Suekane.efkefc");
-	resourcesMap_.emplace(SRC::EFF_MAGMAJUMP, res);
+	resourcesMap_.emplace(SRC::EFF_MAGMA_JUMP, res);
 
 	res = new RES(RES_T::EFFEKSEER, PATH_EFF + "MagmaBubble_Suekane/MagmaBubble_Suekane.efkefc");
-	resourcesMap_.emplace(SRC::EFF_MAGMABUBBLE, res);
+	resourcesMap_.emplace(SRC::EFF_MAGMA_BUBBLE, res);
 
 	res = new RES(RES_T::EFFEKSEER, PATH_EFF + "HitEffect/hit.efkefc");
 	resourcesMap_.emplace(SRC::EFF_HITBODY, res);

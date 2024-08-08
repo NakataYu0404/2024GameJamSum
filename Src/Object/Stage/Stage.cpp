@@ -2,6 +2,8 @@
 #include <EffekseerForDXLib.h>
 #include "../../Manager/ResourceManager.h"
 #include "../../Manager/SceneManager.h"
+#include "../Common/CollisionManager.h"
+#include "../Common/Collider.h"
 #include "Stage.h"
 
 Stage::Stage()
@@ -38,6 +40,8 @@ void Stage::SetParam(void)
 	transform_->pos = { 0.0f,0.0f,0.0f };
 	transform_->quaRot = Quaternion();
 	transform_->scl = { 1.0f,1.0f,1.0f };
+
+	transform_->MakeCollider(Collider::Category::STAGE, Collider::TYPE::MODEL);
 
 	transform_->Update();
 }

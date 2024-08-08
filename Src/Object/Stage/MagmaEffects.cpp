@@ -49,7 +49,7 @@ void MagmaEffects::SetParam(void)
 
 	transform_->Update();
 
-	effectController_->Add((int)EFFECT_TYPE::MAGMA_JUMP, resIns.Load(ResourceManager::SRC::EFF_MAGMAJUMP).handleId_);
+	effectController_->Add((int)EFFECT_TYPE::MAGMA_JUMP, resIns.Load(ResourceManager::SRC::EFF_MAGMA_JUMP).handleId_);
 
-	effectController_->Add((int)EFFECT_TYPE::MAGMA_BUBBLE, resIns.Load(ResourceManager::SRC::EFF_MAGMABUBBLE).handleId_);
+	effectController_->Add((int)EFFECT_TYPE::MAGMA_BUBBLE, resIns.Load(ResourceManager::SRC::EFF_MAGMA_BUBBLE).handleId_);
 }

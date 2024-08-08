@@ -47,6 +47,7 @@ public:
 
 	//	カプセルとモデルの衝突判定
 	Collider::Collision_Date Capsule2Model_Collider_PushBack(const std::weak_ptr<ActorBase> actor, const std::weak_ptr<Transform> transform);
+	Collider::Collision_Date Sphere2Model_Collider_PushBack(const std::weak_ptr<ActorBase> actor, const std::weak_ptr<Transform> transform);
 	DxLib::MV1_COLL_RESULT_POLY Line_IsCollision_Stage(const VECTOR LineTopPos, const VECTOR LineBotPos);
 
 	//	元からあるカプセルコライダを使ったカプセルとカプセルの衝突判定

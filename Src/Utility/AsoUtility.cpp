@@ -17,7 +17,7 @@ std::vector<std::string> AsoUtility::Split(std::string& line, char delimiter)
     std::istringstream stream(line);
     std::string field;
     std::vector<std::string> result;
-    
+
     while (getline(stream, field, delimiter)) {
         result.push_back(field);
     }
@@ -352,6 +352,15 @@ double AsoUtility::Distance(const VECTOR& v1, const VECTOR& v2)
     return sqrt(pow(v2.x - v1.x, 2) + pow(v2.y - v1.y, 2) + pow(v2.z - v1.z, 2));
 }
 
+VECTOR AsoUtility::DistanceV(const VECTOR& v1, const VECTOR& v2)
+{
+    VECTOR ret;
+    ret.x = v2.x - v1.x;
+    ret.y = v2.y - v1.y;
+    ret.z = v2.z - v1.z;
+    return ret;
+}
+
 bool AsoUtility::IsHitSpheres(const VECTOR& pos1, float radius1, const VECTOR& pos2, float radius2)
 {
     //	ãÖëÃìØémÇÃè’ìÀîªíË
@@ -374,7 +383,7 @@ bool AsoUtility::IsHitSpheres(const VECTOR& pos1, float radius1, const VECTOR& p
 }
 
 bool AsoUtility::IsHitSphereCapsule(
-    const VECTOR& sphPos, float sphRadius, 
+    const VECTOR& sphPos, float sphRadius,
     const VECTOR& capPos1, const VECTOR& capPos2, float capRadius)
 {
 

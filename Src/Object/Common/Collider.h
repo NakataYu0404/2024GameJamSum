@@ -10,10 +10,11 @@ public:
 	//	СќПџОнХ 
 	enum class Category
 	{
-		RAIDER,
-		SURVIVOR,
+		PLAYER1,
+		PLAYER2,
+		PLAYER3,
+		PLAYER4,
 		STAGE,
-		SHOT,
 	};
 
 	//	П’УЋОнХ 

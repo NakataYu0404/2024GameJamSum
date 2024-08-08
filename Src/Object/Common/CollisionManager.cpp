@@ -28,14 +28,17 @@ void CollisionManager::Init(void)
 
 	//	使用するタグを追加する
 	tags.clear();
-	tags.emplace_back(Collider::Category::SURVIVOR);
-	tags.emplace_back(Collider::Category::RAIDER);
+	tags.emplace_back(Collider::Category::PLAYER1);
+	tags.emplace_back(Collider::Category::PLAYER2);
+	tags.emplace_back(Collider::Category::PLAYER3);
+	tags.emplace_back(Collider::Category::PLAYER4);
 	tags.emplace_back(Collider::Category::STAGE);
-	tags.emplace_back(Collider::Category::SHOT);
 
 	//	当たり判定のためのタグ管理
-	categoryMap_.emplace(Collider::Category::RAIDER, tags);
-	categoryMap_.emplace(Collider::Category::SURVIVOR, tags);
+	categoryMap_.emplace(Collider::Category::PLAYER1, tags);
+	categoryMap_.emplace(Collider::Category::PLAYER2, tags);
+	categoryMap_.emplace(Collider::Category::PLAYER3, tags);
+	categoryMap_.emplace(Collider::Category::PLAYER4, tags);
 
 
 	//	tags.clear();
@@ -66,9 +69,7 @@ void CollisionManager::Update(void)
 		auto actorCategory = actorCollider->category_;
 
 		//	現在のコライダが動くものでなければやりなおし
-		if ((actorCategory != Collider::Category::RAIDER &&
-			actorCategory != Collider::Category::SURVIVOR) ||
-			categoryMap_.count(actorCategory) == 0)
+		if ((actorCategory != Collider::Category::PLAYER1 && actorCategory != Collider::Category::PLAYER2 && actorCategory != Collider::Category::PLAYER3 && actorCategory != Collider::Category::PLAYER4) || categoryMap_.count(actorCategory) == 0)
 		{
 			continue;
 		}
@@ -144,6 +145,22 @@ void CollisionManager::Update(void)
 				switch (targetType)
 				{
 				case Collider::TYPE::MODEL:
+
+					auto info = Sphere2Model_Collider_PushBack(actor, target.lock()->GetTransform());
+
+					if (info.isHit)
+					{
+						targetCollider->hitInfo_.isHit = true;
+						targetCollider->hitInfo_.Normal = info.Normal;
+						targetCollider->hitInfo_.movedPos = info.movedPos;
+						actor.lock()->OnCollision(targetCollider);
+					}
+					else
+					{
+						targetCollider->hitInfo_.isHit = false;
+						targetCollider->hitInfo_.Normal = { 0.0f, 0.0f, 0.0f };
+					}
+
 					break;
 				case Collider::TYPE::CAPSULE:
 					if (Sphere2Capsule_Collider(
@@ -156,6 +173,11 @@ void CollisionManager::Update(void)
 					}
 					break;
 				case Collider::TYPE::SPHERE:
+					if (HitCheck_Sphere_Sphere(actor.lock()->GetSphere().lock()->GetPos(), actor.lock()->GetSphere().lock()->GetRadius(), target.lock()->GetSphere().lock()->GetPos(), target.lock()->GetSphere().lock()->GetRadius()))
+					{
+						actor.lock()->OnCollision(targetCollider);
+						target.lock()->OnCollision(actorCollider);
+					}
 					break;
 				default:
 					break;
@@ -264,7 +286,6 @@ Collider::Collision_Date CollisionManager::Capsule2Model_Collider_PushBack(const
 					answer.isHit = true;
 					answer.Normal = hit.Normal;
 
-
 					continue;
 				}
 
@@ -278,6 +299,76 @@ Collider::Collision_Date CollisionManager::Capsule2Model_Collider_PushBack(const
 
 	return answer;
 }
+
+Collider::Collision_Date CollisionManager::Sphere2Model_Collider_PushBack(const std::weak_ptr<ActorBase> actor, const std::weak_ptr<Transform> transform)
+{
+	Collider::Collision_Date answer;
+	answer.isHit = false;
+
+	answer.movedPos = actor.lock()->GetTransform().lock()->pos;
+
+
+	//	移動させる
+	std::shared_ptr<Transform> trans = std::make_shared<Transform>();
+	trans->pos = actor.lock()->GetTransform().lock()->pos;
+	trans->Update();
+	std::shared_ptr<Sphere> sph = std::make_shared<Sphere>(actor.lock()->GetSphere(), trans);
+
+	//	//	//	衝突判定
+	//	for (const auto c : colliders_)
+	//	{
+
+	auto hits = MV1CollCheck_Sphere(
+		transform.lock()->modelId, -1,
+		sph->GetPos(), sph->GetRadius());
+
+	//	DxLib::MV1_COLL_RESULT_POLY_DIM
+
+
+	//	衝突した複数のポリゴンと衝突回避するまで、
+	//	プレイヤーの位置を移動させる
+	for (int i = 0; i < hits.HitNum; i++)
+	{
+
+		auto hit = hits.Dim[i];
+		//	DxLib::MV1_COLL_RESULT_POLY
+
+		//	地面と異なり、衝突回避位置が不明なため、何度か移動させる
+		//	この時、移動させる方向は、移動前座標に向いた方向であったり、
+		//	衝突したポリゴンの法線方向だったりする
+		for (int tryCnt = 0; tryCnt < MAX_COLLISION_TRY; tryCnt++)
+		{
+
+			//	再度、モデル全体と衝突検出するには、効率が悪過ぎるので、
+			//	最初の衝突判定で検出した衝突ポリゴン1枚と衝突判定を取る
+			int pHit = HitCheck_Sphere_Triangle(
+				sph->GetPos(), sph->GetRadius(),
+				hit.Position[0], hit.Position[1], hit.Position[2]);
+			if (pHit)
+			{
+				//	法線の方向にちょっとだけ移動させる
+				answer.movedPos = VAdd(answer.movedPos, VScale(hit.Normal, 2.0f));
+				//	カプセルも一緒に移動させる
+				trans->pos = answer.movedPos;
+				trans->Update();
+
+				answer.isHit = true;
+				answer.Normal = hit.Normal;
+
+				continue;
+			}
+
+			break;
+		}
+	}
+
+	//	検出した地面ポリゴン情報の後始末
+	MV1CollResultPolyDimTerminate(hits);
+	//	}
+
+	return answer;
+}
+
 
 DxLib::MV1_COLL_RESULT_POLY CollisionManager::Line_IsCollision_Stage(const VECTOR LineTopPos, const VECTOR LineBotPos)
 {

@@ -3,6 +3,9 @@
 #include <vector>
 #include "../ActorBase.h"
 
+class CollisionManager;
+
+
 class Stage : public ActorBase
 {
 public:

@@ -55,10 +55,10 @@ public:
 
 	//	回転が少ない方の回転向きを取得する(時計回り:1、反時計回り:-1)
 	static int DirNearAroundRad(float from, float to);
-	
+
 	//	回転が少ない方の回転向きを取得する(時計回り:1、反時計回り:-1)
 	static int DirNearAroundDeg(float from, float to);
-	
+
 	//	線形補間
 	static int Lerp(int start, int end, float t);
 	static float Lerp(float start, float end, float t);
@@ -75,7 +75,7 @@ public:
 	//	ベジェ曲線
 	static Vector2 Bezier(const Vector2& p1, const Vector2& p2, const Vector2& p3, float t);
 	static VECTOR Bezier(const VECTOR& p1, const VECTOR& p2, const VECTOR& p3, float t);
-	
+
 	//	Y軸回転
 	static VECTOR RotXZPos(const VECTOR& centerPos, const VECTOR& radiusPos, float rad);
 
@@ -90,13 +90,15 @@ public:
 	static double Distance(const Vector2& v1, const Vector2& v2);
 	static double Distance(const VECTOR& v1, const VECTOR& v2);
 
+	static VECTOR DistanceV(const VECTOR& v1, const VECTOR& v2);
+
 	//	球体同士の衝突判定
 	static bool IsHitSpheres(
 		const VECTOR& pos1, float radius1, const VECTOR& pos2, float radius2);
 
 	//	球体とカプセルの衝突判定
 	static bool IsHitSphereCapsule(
-		const VECTOR& sphPos, float sphRadius, 
+		const VECTOR& sphPos, float sphRadius,
 		const VECTOR& capPos1, const VECTOR& capPos2, float capRadius);
 
 	//	比較
