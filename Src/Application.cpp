@@ -5,6 +5,7 @@
 #include "Manager/Timer.h"
 #include "Manager/SceneManager.h"
 #include "Object/Common/CollisionManager.h"
+#include "Object/Stage/Stage.h"
 #include "Application.h"
 
 Application* Application::instance_ = nullptr;
@@ -67,7 +68,8 @@ void Application::Init(void)
 	//	ƒV[ƒ“ŠÇ—‰Šú‰»
 	SceneManager::CreateInstance();
 
-
+	//Stage
+	Stage::CreateInstance();
 }
 
 void Application::Run(void)
@@ -95,7 +97,7 @@ void Application::Run(void)
 
 void Application::Destroy(void)
 {
-
+	Stage::GetInstance().Destory();
 	InputManager::GetInstance().Destroy();
 	ResourceManager::GetInstance().Destroy();
 	SceneManager::GetInstance().Destroy();

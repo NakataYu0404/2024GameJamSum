@@ -12,17 +12,19 @@ public:
 	void Init(void);
 	void Update(void);
 	void Draw(void);
-
-
+	void Release(void);
+		
 	//インスタンスの生成
 	//シングルトン化
 	static void CreateInstance(void);
 
 	static Stage& GetInstance(void);
 
+	void Destory(void);
+
 private:
 
-
+	int ModelHandle;
 
 	//シングルトン化
 	static Stage* instance_;
@@ -38,7 +40,6 @@ private:
 	//コピーコンストラスタ
 	Stage(const Stage& ins);
 
-	void Destory(void);
 
 };
 

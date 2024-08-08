@@ -1,5 +1,8 @@
 #include <DxLib.h>      //DXライブラリの使用する
 
+#include "../../Application.h"
+
+
 #include "Stage.h"
 
 
@@ -25,6 +28,8 @@ Stage& Stage::GetInstance(void)
 
 void Stage::Destory(void)
 {
+	Release();
+
 	delete instance_;
 	instance_ = nullptr;
 }
@@ -44,7 +49,12 @@ Stage::~Stage(void)
 
 void Stage::Init(void)
 {
+	// ３Ｄモデルの読み込み
+	ModelHandle = MV1LoadModel((Application::PATH_MODEL+"stage.mv1").c_str());
 
+	// 画面に映る位置に３Ｄモデルを移動
+	MV1SetPosition(ModelHandle, VGet(320.0f, -300.0f, 600.0f));
+	
 }
 
 void Stage::Update(void)
@@ -54,5 +64,12 @@ void Stage::Update(void)
 
 void Stage::Draw(void)
 {
+	// ３Ｄモデルの描画
+	MV1DrawModel(ModelHandle);
+}
 
+void Stage::Release(void)
+{
+    // モデルハンドルの削除
+	MV1DeleteModel(ModelHandle);
 }
