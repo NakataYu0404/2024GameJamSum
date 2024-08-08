@@ -44,14 +44,17 @@ void Player::InitModel()
 
 void Player::Update()
 {
-	(this->*updateFunc_)();
+	if (state_ == State::None) return;
 
+	(this->*updateFunc_)();
 	CollisionStage();
 	transform_->Update();
 }
 
 void Player::Draw()
 {
+	if (state_ == State::None) return;
+
 	// ƒ‚ƒfƒ‹À•W•â³
 	MV1SetPosition(transform_->modelId, VAdd(transform_->pos, MODEL_CORRECTION_POS));
 
@@ -105,6 +108,12 @@ void Player::UpdateFall()
 {
 	// —Ž‰º
 	Gravity();
+
+	// Á–Å
+	float magmaPosY = -50.0f;
+	if (transform_->pos.y <= magmaPosY) {
+		state_ = State::None;
+	}
 }
 
 const bool& Player::IsInputMove()

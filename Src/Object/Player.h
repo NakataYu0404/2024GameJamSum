@@ -32,6 +32,7 @@ public:
         Move,
         KnockBack,
         Fall,
+        None,
     };
 
     Player();
