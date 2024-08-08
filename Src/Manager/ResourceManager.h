@@ -19,7 +19,8 @@ public:
 		MDL_MAGMA,
 
 		//	エフェクト EFF_
-
+		EFF_MAGMAJUMP,
+		EFF_MAGMABUBBLE,
 
 		//	サウンド SND_
 
