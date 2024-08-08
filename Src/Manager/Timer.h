@@ -27,7 +27,7 @@ public:
 	static constexpr int FRAME_SIZE_Y = 80;
 
 	//数字フォントサイズ
-	static constexpr int NUMBER_SIZE_X = 80;
+	static constexpr int NUMBER_SIZE_X = 50;
 	static constexpr int NUMBER_SIZE_Y = 80;
 
 	//関数
