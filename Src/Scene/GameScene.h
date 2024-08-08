@@ -3,12 +3,25 @@
 #include "../Object/Common/Transform.h"
 class SceneManager;
 class AnimationController;
-
+class Magma;
 
 class GameScene : public SceneBase
 {
 
 public:
+
+	//	ゲームシーン内のシーン
+	enum class InSceneType
+	{
+		//	ゲーム開始前シーン
+		READY,
+
+		//	ゲーム中シーン
+		INGAME,
+
+		//	ゲーム終了演出シーン
+		GAMEOVER,
+	};
 
 	//	コンストラクタ
 	GameScene(void);
@@ -22,5 +35,12 @@ public:
 
 private:
 
+	void UpdateReady(void);
+	void UpdateInGame(void);
+	void UpdateOver(void);
 
+	//	今、ゲームシーン内のどこか
+	InSceneType inTypeGame_;
+
+	std::shared_ptr<Magma> magma_;
 };

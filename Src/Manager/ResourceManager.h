@@ -16,7 +16,7 @@ public:
 
 
 		//	モデル MDL_
-
+		MDL_MAGMA,
 
 		//	エフェクト EFF_
 

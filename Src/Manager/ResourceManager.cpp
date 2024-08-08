@@ -27,11 +27,31 @@ void ResourceManager::Init(void)
 	static std::string PATH_IMG = Application::PATH_IMAGE;
 	static std::string PATH_MDL = Application::PATH_MODEL;
 	static std::string PATH_EFF = Application::PATH_EFFECT;
+	static std::string PATH_SND = Application::PATH_SOUND;
+	static std::string PATH_SHA = Application::PATH_SHADER;
 
 	Resource* res;
 	
 	////res = new RES(RES_T::, PATH_IMG + "");
 	////resourcesMap_.emplace(SRC::, res);
+
+	//	画像
+
+
+	//	モデル
+	res = new RES(RES_T::MODEL, PATH_MDL + "Magma/magma.mv1");
+	resourcesMap_.emplace(SRC::MDL_MAGMA, res);
+
+	//	エフェクト
+
+
+	//	サウンド
+
+
+	//	シェーダー
+
+
+
 }
 
 void ResourceManager::Release(void)

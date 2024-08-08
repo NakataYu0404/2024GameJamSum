@@ -38,6 +38,7 @@
     <ClCompile Include="Src\Object\Common\EffectController.cpp" />
     <ClCompile Include="Src\Object\Common\Sphere.cpp" />
     <ClCompile Include="Src\Object\Common\Transform.cpp" />
+    <ClCompile Include="Src\Object\Stage\Magma.cpp" />
     <ClCompile Include="Src\Scene\GameScene.cpp" />
     <ClCompile Include="Src\Scene\SceneBase.cpp" />
     <ClCompile Include="Src\Scene\TitleScene.cpp" />
@@ -64,6 +65,7 @@
     <ClInclude Include="Src\Object\Common\EffectController.h" />
     <ClInclude Include="Src\Object\Common\Sphere.h" />
     <ClInclude Include="Src\Object\Common\Transform.h" />
+    <ClInclude Include="Src\Object\Stage\Magma.h" />
     <ClInclude Include="Src\Scene\GameScene.h" />
     <ClInclude Include="Src\Scene\SceneBase.h" />
     <ClInclude Include="Src\Scene\TitleScene.h" />
