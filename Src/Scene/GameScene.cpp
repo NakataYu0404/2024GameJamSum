@@ -24,6 +24,10 @@ GameScene::GameScene(void)
 	players_.push_back(make_shared<Player1>());
 	VECTOR initPos = { 300.0f,0.0f,0.0f };
 	players_.push_back(make_shared<Player2>(initPos));
+	initPos = { 0.0f,0.0f,400.0f };
+	players_.push_back(make_shared<Player2>(initPos));
+	initPos = { 0.0f,0.0f,800.0f };
+	players_.push_back(make_shared<Player2>(initPos));
 	// players_.push_back(make_shared<Player2>());
 }
 
@@ -98,26 +102,36 @@ void GameScene::Collision()
 	for (auto& p1 : players_) {
 		for (auto& p2 : players_) {
 			if (p1 == p2) continue;
-			// 判定
 			float distance = VSize(VSub(p1->GetTransform().lock()->pos, p2->GetTransform().lock()->pos));
 			float CollDistance = p1->GetSphere().lock()->GetRadius() + p2->GetSphere().lock()->GetRadius();
-			if (distance <= CollDistance) {
-				// 衝突判定
-				VECTOR p1Dir = p1->GetMoveDir();
-				VECTOR p2Dir = p2->GetMoveDir();
-				VECTOR dir = { 0.0f,0.0f,1.0f };
-				//p1->SetMoveDir(dir);
-				// p2->SetMoveDir(p1Dir);
-				// p1->SwitchMoveDir();
-				if (p1->GetMoveAcc() >= p2->GetMoveAcc()) {
-					p1->ProcessKnockBack(VScale(p1Dir, -1), 1.1f);
-				}
-				else{
-					p2->ProcessKnockBack(VScale(p2Dir, -1), 1.1f);
-				}
-				DrawFormatString(0, 64, 0xffffff, "当たった");
-				return;
+
+			// 衝突判定
+			if (distance >= CollDistance) continue;
+
+			// 速度比較
+			float p1Acc = p1->GetMoveAcc();
+			float p2Acc = p2->GetMoveAcc();
+
+			// ノックバック方向計算
+			VECTOR p1KnockBackDir = VNorm(VSub(p1->GetTransform().lock()->pos, p2->GetTransform().lock()->pos));
+			VECTOR p2KnockBackDir = VScale(p1KnockBackDir, -1.0f);
+
+			if (p1Acc == p2Acc) {
+				// 両方にノックバック
+				p1->ProcessKnockBack(p1KnockBackDir, 0.5f);
+				p2->ProcessKnockBack(p2KnockBackDir, 0.5f);
+			} 
+			else {
+				// 比率でノックバックをさせる
+				float totalAcc = p1Acc + p2Acc;
+				p1->ProcessKnockBack(p1KnockBackDir, p2Acc / totalAcc);
+				p2->ProcessKnockBack(p2KnockBackDir, p1Acc / totalAcc);
+
 			}
+			DrawFormatString(0, 64, 0xffffff, "当たった");
+
+			// このままだと同じ当たり判定を2回繰り返す
+			return;
 		}
 	}
 }
