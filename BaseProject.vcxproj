@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Object\Stage\MagmaEffects.cpp" />
+    <ClCompile Include="Src\Object\Player2.cpp" />
+    <ClCompile Include="Src\Object\Player1.cpp" />
     <ClCompile Include="Src\Application.cpp" />
     <ClCompile Include="Src\Common\Fader.cpp" />
     <ClCompile Include="Src\Common\Quaternion.cpp" />
@@ -39,6 +41,7 @@
     <ClCompile Include="Src\Object\Common\EffectController.cpp" />
     <ClCompile Include="Src\Object\Common\Sphere.cpp" />
     <ClCompile Include="Src\Object\Common\Transform.cpp" />
+    <ClCompile Include="Src\Object\Player.cpp" />
     <ClCompile Include="Src\Object\Stage\Magma.cpp" />
     <ClCompile Include="Src\Scene\GameScene.cpp" />
     <ClCompile Include="Src\Scene\SceneBase.cpp" />
@@ -48,6 +51,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Object\Stage\MagmaEffects.h" />
+    <ClInclude Include="Src\Object\Player2.h" />
+    <ClInclude Include="Src\Object\Player1.h" />
     <ClInclude Include="Src\Application.h" />
     <ClInclude Include="Src\Common\Fader.h" />
     <ClInclude Include="Src\Common\Quaternion.h" />
@@ -67,6 +72,7 @@
     <ClInclude Include="Src\Object\Common\EffectController.h" />
     <ClInclude Include="Src\Object\Common\Sphere.h" />
     <ClInclude Include="Src\Object\Common\Transform.h" />
+    <ClInclude Include="Src\Object\Player.h" />
     <ClInclude Include="Src\Object\Stage\Magma.h" />
     <ClInclude Include="Src\Scene\GameScene.h" />
     <ClInclude Include="Src\Scene\SceneBase.h" />
