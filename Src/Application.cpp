@@ -70,6 +70,10 @@ void Application::Init(void)
 
 	//Stage
 	Stage::CreateInstance();
+
+	std::random_device rd;
+	gen_ = std::mt19937(rd());
+
 }
 
 void Application::Run(void)
@@ -125,6 +129,13 @@ bool Application::IsInitFail(void) const
 bool Application::IsReleaseFail(void) const
 {
 	return isReleaseFail_;
+}
+
+int Application::GetRandomNum(int max)
+{
+	std::uniform_int_distribution<> distr(0, max);
+
+	return distr(gen_);
 }
 
 Application::Application(void)

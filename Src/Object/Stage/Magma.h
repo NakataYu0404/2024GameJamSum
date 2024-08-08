@@ -1,8 +1,10 @@
 #pragma once
 #include <memory>
+#include <vector>
 #include "../ActorBase.h"
 
 class EffectController;
+class MagmaEffects;
 
 class Magma : public ActorBase
 {
@@ -25,6 +27,6 @@ public:
 
 private:
 
-	std::shared_ptr<EffectController> effectController_;
+	std::vector<std::shared_ptr<MagmaEffects>> magmaEffects_;
 };
 

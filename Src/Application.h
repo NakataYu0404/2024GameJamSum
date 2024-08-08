@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+#include <random>
 #include <string>
 
 class Application
@@ -40,6 +42,7 @@ public:
 	//	解放成功／失敗の判定
 	bool IsReleaseFail(void) const;
 
+	int GetRandomNum(int max);
 private:
 
 	//	デフォルトコンストラクタをprivateにして、
@@ -60,5 +63,6 @@ private:
 	//	解放失敗
 	bool isReleaseFail_;
 
+	std::mt19937 gen_;
 
 };

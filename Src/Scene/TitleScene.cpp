@@ -9,6 +9,7 @@
 #include "../Manager/InputManager.h"
 #include "../Manager/Camera.h"
 #include "../Object/Common/AnimationController.h"
+#include "../Object/Stage/Stage.h"
 #include "TitleScene.h"
 
 TitleScene::TitleScene(void)
