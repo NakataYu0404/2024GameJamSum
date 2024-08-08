@@ -41,9 +41,9 @@ void TitleScene::Update(void)
 	{
 		titleLogoShiftTime_++;
 		//TODO ƒ^ƒCƒgƒ‹ƒƒS‚Ì“®‚«
-		titleLogoPos_[1] = SineOut(titleLogoShiftTime_
-			, SceneManager::GetInstance().GetDeltaTime() * 3.0f
-			,)
+		//titleLogoPos_[1] = SineOut(titleLogoShiftTime_
+		//	, SceneManager::GetInstance().GetDeltaTime() * 3.0f
+		//	,)
 	}
 }
 

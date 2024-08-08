@@ -1,6 +1,7 @@
 #pragma once
 #include "SceneBase.h"
 #include "../Object/Common/Transform.h"
+#include"../Common/Vector2.h"
 class SceneManager;
 class AnimationController;
 
