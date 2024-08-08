@@ -4,9 +4,6 @@
 
 void Player2::InitModel()
 {
-	transform_->modelId = MV1LoadModel("PlayerData/Model/X bot.mv1");
-	transform_->quaRot = Quaternion();
-	transform_->quaRotLocal = Quaternion::Euler({ 0.0f,AsoUtility::Deg2RadF(180.0f),0.0f });
 }
 
 const bool& Player2::IsInputMove()

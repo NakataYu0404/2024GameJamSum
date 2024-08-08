@@ -5,6 +5,7 @@
 #include "../Utility/AsoUtility.h"
 #include "Common/CollisionManager.h"
 #include "../Manager/Camera.h"
+#include "Common/AnimationController.h"
 
 VECTOR VECTOR_ZERO = { 0.0f,0.0f,0.0f };
 
@@ -40,6 +41,11 @@ void Player::InitModel()
 	transform_->modelId = MV1LoadModel("PlayerData/Model/X bot.mv1");
 	transform_->quaRot = Quaternion();
 	transform_->quaRotLocal = Quaternion::Euler({ 0.0f,AsoUtility::Deg2RadF(180.0f),0.0f });
+
+	anim_ = make_shared<AnimationController>(transform_->modelId);
+	anim_->Add(static_cast<int>(AnimType::Move), "PlayerData/Model/Walk.mv1", 20.0f);
+	anim_->Add(static_cast<int>(AnimType::Landing), "PlayerData/Model/Landing.mv1", 20.0f);
+	anim_->Play(static_cast<int>(AnimType::Move));
 }
 
 void Player::Update()
@@ -48,6 +54,7 @@ void Player::Update()
 
 	(this->*updateFunc_)();
 	CollisionStage();
+	anim_->Update();
 	transform_->Update();
 }
 
@@ -229,6 +236,7 @@ void Player::CollisionStage()
 	if (StageRadius < Distance) {
 		updateFunc_ = &Player::UpdateFall;
 		state_ = State::Fall;
+		anim_->Play(static_cast<int>(AnimType::Landing));
 	}
 }
 

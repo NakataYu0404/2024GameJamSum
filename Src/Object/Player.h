@@ -3,6 +3,7 @@
 #include <memory>
 
 class InputManager;
+class AnimationController;
 
 using namespace std;
 
@@ -35,6 +36,11 @@ public:
         None,
     };
 
+    enum class AnimType {
+        Move,
+        Landing
+    };
+
     Player();
     Player(const VECTOR& initPos);
     ~Player();
@@ -55,6 +61,8 @@ public:
 protected:
 
     InputManager& input_;
+
+    shared_ptr<AnimationController> anim_;
 
     State state_;
 
