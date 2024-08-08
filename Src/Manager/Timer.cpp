@@ -23,6 +23,8 @@ void Timer::Init(void)
 	//画像読み込み
 	timerFrameImg_ = LoadGraph((Application::PATH_IMAGE + "TimerFrame.png").c_str());
 
+	LoadDivGraph((Application::PATH_IMAGE + "Number.png").c_str(), 10, 10, 1, NUMBER_SIZE_X, NUMBER_SIZE_Y, numberImg_);
+
 	//変数の初期化
 	counter_ = COUNTER_ZERO;
 	nowCount_ = GetNowCount();
@@ -44,7 +46,10 @@ void Timer::Draw(void)
 	//デバッグ
 	DrawRotaGraph(framePos_.x, framePos_.y + 10, 1.0, 0.0, timerFrameImg_, true);
 
-	DrawFormatString(framePos_.x, framePos_.y, IsTimeOver() ? 0x000000 : 0xff0000, "%d", TIME_LIMIT.Sec - counter_.Sec);
+	//DrawFormatString(framePos_.x, framePos_.y, IsTimeOver() ? 0x000000 : 0xff0000, "%d%d", (TIME_LIMIT.Sec - counter_.Sec) / 10, (TIME_LIMIT.Sec - counter_.Sec) % 10);
+
+	DrawRotaGraph(framePos_.x, framePos_.y + 10, 1.0, 0.0, numberImg_[(TIME_LIMIT.Sec - counter_.Sec) / 10], true);
+	DrawRotaGraph(framePos_.x  + NUMBER_SIZE_X, framePos_.y + 10, 1.0, 0.0, numberImg_[(TIME_LIMIT.Sec - counter_.Sec) % 10], true);
 }
 
 void Timer::Release(void)

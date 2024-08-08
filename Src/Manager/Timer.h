@@ -26,6 +26,10 @@ public:
 	static constexpr int FRAME_SIZE_X = 200;
 	static constexpr int FRAME_SIZE_Y = 80;
 
+	//数字フォントサイズ
+	static constexpr int NUMBER_SIZE_X = 80;
+	static constexpr int NUMBER_SIZE_Y = 80;
+
 	//関数
 	//--------------------
 
@@ -80,4 +84,7 @@ private:
 
 	//タイマーフレームの座標
 	Vector2 framePos_;
+
+	//数字の画像
+	int numberImg_[10];
 };
