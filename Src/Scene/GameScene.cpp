@@ -54,8 +54,6 @@ void GameScene::Draw(void)
 {
 	DrawFormatString(0, 0, 0xffffff, "Game");
 
-	
-
 	Timer::GetInstance().Draw();
 
 	magma_->Draw();
