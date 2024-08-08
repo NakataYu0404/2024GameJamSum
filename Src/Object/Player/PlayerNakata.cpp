@@ -131,6 +131,11 @@ VECTOR Player::GetSpeedVec(void)
 	return AddSpeed_;
 }
 
+bool Player::GetAlive(void)
+{
+	return isAlive_;
+}
+
 void Player::ProcessMove(void)
 {
 	auto& input = InputManager::GetInstance();

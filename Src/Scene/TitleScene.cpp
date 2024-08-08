@@ -32,7 +32,6 @@ void TitleScene::Init(void)
 
 void TitleScene::Update(void)
 {
-	//TODO ゲームパッドのAボタンの判定の追加
 	auto& input = InputManager::GetInstance();
 
 	if (InputManager::GetInstance().IsTrgDown(KEY_INPUT_SPACE) || input.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD1, InputManager::JOYPAD_BTN::DOWN))

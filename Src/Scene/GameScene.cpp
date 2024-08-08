@@ -145,8 +145,13 @@ void GameScene::UpdateReady(void)
 {
 	auto& input = InputManager::GetInstance();
 
-	if (input.IsTrgDown(KEY_INPUT_SPACE) || input.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD1,InputManager::JOYPAD_BTN::DOWN))
+	if (input.IsTrgDown(KEY_INPUT_SPACE) ||
+		(input.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD1,InputManager::JOYPAD_BTN::DOWN)&&
+		input.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD2, InputManager::JOYPAD_BTN::DOWN)&&
+		input.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD3, InputManager::JOYPAD_BTN::DOWN)&&
+		input.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD4, InputManager::JOYPAD_BTN::DOWN)))
 	{
+		//	TODO:ここにカウントダウン演出を追加して、カウントダウンが終わったらinTypeGameが変わるようにする
 		inTypeGame_ = InSceneType::INGAME;
 		Timer::GetInstance().ResetTimer();
 	}
@@ -166,6 +171,7 @@ void GameScene::UpdateInGame(void)
 
 	//	if(決着)
 	//	{	
+			if(players_[0]->GetAlive())
 	//		if (InputManager::GetInstance().IsTrgDown(KEY_INPUT_NUMPAD0))
 	//		{
 	//			inTypeGame_ = InSceneType::GAMEOVER;

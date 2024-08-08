@@ -25,6 +25,8 @@ public:
 	void SetPlayers(std::weak_ptr<Player> player);
 
 	VECTOR GetSpeedVec(void);
+
+	bool GetAlive(void);
 private:
 
 	void ProcessMove(void);
