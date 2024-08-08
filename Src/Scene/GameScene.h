@@ -1,9 +1,15 @@
 #pragma once
 #include "SceneBase.h"
 #include "../Object/Common/Transform.h"
+#include <memory>
+
 class SceneManager;
 class AnimationController;
 class Magma;
+
+class Player;
+
+using namespace std;
 
 class GameScene : public SceneBase
 {
@@ -43,4 +49,6 @@ private:
 	InSceneType inTypeGame_;
 
 	std::shared_ptr<Magma> magma_;
+
+	vector <shared_ptr<Player>> players_;
 };

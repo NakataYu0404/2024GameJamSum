@@ -12,8 +12,16 @@
 #include "../Object/Stage/Magma.h"
 #include "GameScene.h"
 
+#include "../Object/Player.h"
+#include "../Object/Common/CollisionManager.h"
+#include "../Object/Common/Sphere.h"
+
 GameScene::GameScene(void)
 {
+
+	players_.push_back(make_shared<Player>());
+	VECTOR initPos = { 300.0f,0.0f,0.0f };
+	players_.push_back(make_shared<Player>(initPos));
 }
 
 GameScene::~GameScene(void)
@@ -44,6 +52,10 @@ void GameScene::Update(void)
 	default:
 		break;
 	}
+
+	for (auto& p : players_) {
+		p->Update();
+	}
 }
 
 void GameScene::Draw(void)
@@ -51,6 +63,9 @@ void GameScene::Draw(void)
 	DrawFormatString(0, 0, 0xffffff, "Game");
 
 	magma_->Draw();
+	for (auto& p : players_) {
+		p->Draw();
+	}
 }
 
 void GameScene::UpdateReady(void)
