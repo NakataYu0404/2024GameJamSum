@@ -209,6 +209,12 @@ void Camera::ProcessRot(void)
 
 void Camera::SetBeforeDrawFixedPoint(void)
 {
+
+
+	pos_ = { 0.0f,200.0f,-100.0f };
+
+	targetPos_ = { 0.0f,100.0f,100.0f };
+
 	//	‰½‚à‚µ‚È‚¢
 }
 
