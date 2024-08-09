@@ -30,7 +30,7 @@ void TitleScene::Init(void)
 
 	for (int i = 0; i < TITLE_LOGO_NUM; i++)
 	{
-		titleLogoPos_[i] = { Application::SCREEN_SIZE_X / 2 , 0 };
+		titleLogoPos_[i] = { Application::SCREEN_SIZE_X / 2 , -TITLE_LOGO_SIZE_Y };
 		titleLogoShiftTime_[i] = 0;
 		titleLogoBackScale_[i] = 1.0f;
 	}
