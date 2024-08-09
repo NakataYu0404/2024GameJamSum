@@ -72,6 +72,9 @@ void GameScene::Init(void)
 	player2ReadyFlag_ = false;
 	player3ReadyFlag_ = false;
 	player4ReadyFlag_ = false;
+
+	imgAlready_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::IMG_ALREADY).handleId_;
+	imgReady_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::IMG_READY).handleId_;
 }
 
 void GameScene::Update(void)
@@ -134,7 +137,26 @@ void GameScene::DrawUI(void)
 	switch (inTypeGame_)
 	{
 	case GameScene::InSceneType::READY:
+		DrawGraph(0, 0, imgReady_, true);
+		if (player1ReadyFlag_)
+		{
+			DrawGraph(80, 287, imgAlready_, true);
+		}
+		if (player2ReadyFlag_)
+		{
+			DrawGraph(460, 287, imgAlready_, true);
+		}
+		if (player3ReadyFlag_)
+		{
+			DrawGraph(840, 287, imgAlready_, true);
+		}
+		if (player4ReadyFlag_)
+		{
+			DrawGraph(1220, 287, imgAlready_, true);
+		}
+
 		Timer::GetInstance().CountDownDraw();
+
 		break;
 	case GameScene::InSceneType::INGAME:
 		Timer::GetInstance().Draw();
