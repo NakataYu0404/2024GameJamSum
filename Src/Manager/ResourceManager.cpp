@@ -96,6 +96,9 @@ void ResourceManager::Init(void)
 	res = new RES(RES_T::EFFEKSEER, PATH_EFF + "HitEffect/hit.efkefc");
 	resourcesMap_.emplace(SRC::EFF_HITBODY, res);
 
+	res = new RES(RES_T::EFFEKSEER, PATH_EFF + "Fire/MagicFire1.efkproj");
+	resourcesMap_.emplace(SRC::EFF_FIRE, res);
+
 
 	//	ƒTƒEƒ“ƒh
 	res = new RES(RES_T::SOUND, PATH_SND + "Win.mp3");

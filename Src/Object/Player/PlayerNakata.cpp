@@ -23,6 +23,8 @@ Player::~Player()
 
 void Player::Init(void)
 {
+	effectController_ = std::make_shared<EffectController>();
+
 	transform_ = std::make_shared<Transform>();
 	charactorTran_ = std::make_shared<Transform>();
 
@@ -52,10 +54,15 @@ void Player::Update(void)
 
 	AnimUpdate();
 
-	if (transform_->pos.y <= -1000.0f)
+	if (transform_->pos.y <= -600.0f)
 	{
+		effectController_->Play((int)EFFECT_TYPE::FIRE);
+		effectController_->TransUpdate((int)EFFECT_TYPE::FIRE, transform_->pos, { 15.0f,100.0f,15.0f });
+
 		isAlive_ = false;
 	}
+
+
 }
 
 void Player::AnimUpdate(void)
@@ -148,6 +155,10 @@ void Player::SetParam(void)
 	stepRotTime_ = 0.0f;
 
 	InitAnimation();
+
+	effectController_->Add((int)EFFECT_TYPE::HIT, resIns.Load(ResourceManager::SRC::EFF_HITBODY).handleId_);
+	effectController_->Add((int)EFFECT_TYPE::FIRE, resIns.Load(ResourceManager::SRC::EFF_FIRE).handleId_);
+
 }
 
 void Player::OnCollision(std::weak_ptr<Collider> collider)
@@ -161,15 +172,27 @@ void Player::OnCollision(std::weak_ptr<Collider> collider)
 	{
 	case Collider::Category::PLAYER1:
 		AddSpeed_ = AsoUtility::VDiv(VAdd(AddSpeed_, AsoUtility::VNormalize(AsoUtility::DistanceV(players_[0].lock()->GetTransform().lock()->pos, transform_->pos))), 3.0f);
+		effectController_->Play((int)EFFECT_TYPE::HIT);
+		effectController_->TransUpdate((int)EFFECT_TYPE::HIT, transform_->pos, { 15.0f,15.0f,15.0f });
+
 		break;
 	case Collider::Category::PLAYER2:
 		AddSpeed_ = AsoUtility::VDiv(VAdd(AddSpeed_, AsoUtility::VNormalize(AsoUtility::DistanceV(players_[1].lock()->GetTransform().lock()->pos, transform_->pos))), 3.0f);
+		effectController_->Play((int)EFFECT_TYPE::HIT);
+		effectController_->TransUpdate((int)EFFECT_TYPE::HIT, transform_->pos, { 15.0f,15.0f,15.0f });
+
 		break;
 	case Collider::Category::PLAYER3:
 		AddSpeed_ = AsoUtility::VDiv(VAdd(AddSpeed_, AsoUtility::VNormalize(AsoUtility::DistanceV(players_[2].lock()->GetTransform().lock()->pos, transform_->pos))), 3.0f);
+		effectController_->Play((int)EFFECT_TYPE::HIT);
+		effectController_->TransUpdate((int)EFFECT_TYPE::HIT, transform_->pos, { 15.0f,15.0f,15.0f });
+
 		break;
 	case Collider::Category::PLAYER4:
 		AddSpeed_ = AsoUtility::VDiv(VAdd(AddSpeed_, AsoUtility::VNormalize(AsoUtility::DistanceV(players_[3].lock()->GetTransform().lock()->pos, transform_->pos))), 3.0f);
+		effectController_->Play((int)EFFECT_TYPE::HIT);
+		effectController_->TransUpdate((int)EFFECT_TYPE::HIT, transform_->pos, { 15.0f,15.0f,15.0f });
+
 		break;
 	case Collider::Category::STAGE:
 		transform_->pos = collider.lock()->hitInfo_.movedPos;

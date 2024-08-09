@@ -4,6 +4,7 @@
 #include "../ActorBase.h"
 
 class AnimationController;
+class EffectController;
 
 //	すでに先人がPlayerでGameSceneにクラスを作ったりしていたので、その遺物を利用するために名前をPlayerにした
 class Player : public ActorBase
@@ -17,6 +18,12 @@ public:
 	enum class ANIM_TYPE
 	{
 		WALK,
+	};
+
+	enum class EFFECT_TYPE
+	{
+		HIT,
+		FIRE,
 	};
 
 	Player(int plNum);
@@ -84,6 +91,7 @@ private:
 
 	//	アニメーション
 	std::shared_ptr<AnimationController> animationController_;
+	std::shared_ptr<EffectController> effectController_;
 
 	float rotRad_;
 

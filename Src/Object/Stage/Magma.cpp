@@ -27,6 +27,16 @@ void Magma::Init(void)
 	VECTOR pos = transform_->pos;
 
 	magmaEffects_.push_back(std::make_shared<MagmaEffects>(pos));
+
+	pos.x += 1000.0f;
+	pos.z -= 300.0f;
+	
+	magmaEffects_.push_back(std::make_shared<MagmaEffects>(pos));
+
+	pos.x*=-1;
+
+	magmaEffects_.push_back(std::make_shared<MagmaEffects>(pos));
+
 	for (auto m : magmaEffects_)
 	{
 		m->Init();

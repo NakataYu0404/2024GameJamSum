@@ -41,6 +41,7 @@ public:
 		EFF_MAGMA_JUMP,
 		EFF_MAGMA_BUBBLE,
 		EFF_HITBODY,
+		EFF_FIRE,
 
 		//	ƒTƒEƒ“ƒh SND_
 		SND_WIN,
