@@ -38,6 +38,7 @@ public:
 		EFF_HITBODY,
 
 		//	ƒTƒEƒ“ƒh SND_
+		SND_WIN,
 
 
 	};

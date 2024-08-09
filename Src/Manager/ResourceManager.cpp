@@ -88,7 +88,8 @@ void ResourceManager::Init(void)
 
 
 	//	サウンド
-
+	res = new RES(RES_T::SOUND, PATH_SND + "Win.mp3");
+	resourcesMap_.emplace(SRC::SND_WIN, res);
 
 	//	シェーダー
 
