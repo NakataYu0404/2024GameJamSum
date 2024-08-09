@@ -13,7 +13,8 @@ public:
 	{
 		//	‰æ‘œ IMG_‚©‚çŽn‚ß‚é‚±‚Æ
 		//	—áFIMG_TITLE
-
+		IMG_READY,
+		IMG_ALREADY,
 
 		//	ƒ‚ƒfƒ‹ MDL_
 		MDL_NONE,

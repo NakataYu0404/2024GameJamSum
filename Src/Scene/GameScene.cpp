@@ -65,6 +65,16 @@ void GameScene::Init(void)
 
 	magma_ = std::make_shared<Magma>();
 	magma_->Init();
+
+	Timer::GetInstance().ResetCountDownTimer();
+
+	player1ReadyFlag_ = false;
+	player2ReadyFlag_ = false;
+	player3ReadyFlag_ = false;
+	player4ReadyFlag_ = false;
+
+	imgAlready_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::IMG_ALREADY).handleId_;
+	imgReady_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::IMG_READY).handleId_;
 }
 
 void GameScene::Update(void)
@@ -127,6 +137,26 @@ void GameScene::DrawUI(void)
 	switch (inTypeGame_)
 	{
 	case GameScene::InSceneType::READY:
+		DrawGraph(0, 0, imgReady_, true);
+		if (player1ReadyFlag_)
+		{
+			DrawGraph(80, 287, imgAlready_, true);
+		}
+		if (player2ReadyFlag_)
+		{
+			DrawGraph(460, 287, imgAlready_, true);
+		}
+		if (player3ReadyFlag_)
+		{
+			DrawGraph(840, 287, imgAlready_, true);
+		}
+		if (player4ReadyFlag_)
+		{
+			DrawGraph(1220, 287, imgAlready_, true);
+		}
+
+		Timer::GetInstance().CountDownDraw();
+
 		break;
 	case GameScene::InSceneType::INGAME:
 		Timer::GetInstance().Draw();
@@ -145,15 +175,43 @@ void GameScene::UpdateReady(void)
 {
 	auto& input = InputManager::GetInstance();
 
-	if (input.IsTrgDown(KEY_INPUT_SPACE) ||
-		(input.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD1,InputManager::JOYPAD_BTN::DOWN)&&
-		input.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD2, InputManager::JOYPAD_BTN::DOWN)&&
-		input.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD3, InputManager::JOYPAD_BTN::DOWN)&&
-		input.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD4, InputManager::JOYPAD_BTN::DOWN)))
+	if (input.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD1, InputManager::JOYPAD_BTN::DOWN))
+	{
+		player1ReadyFlag_ = true;
+	}
+	if (input.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD2, InputManager::JOYPAD_BTN::DOWN))
+	{
+		player2ReadyFlag_ = true;
+	}
+	if (input.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD3, InputManager::JOYPAD_BTN::DOWN))
+	{
+		player3ReadyFlag_ = true;
+	}
+	if (input.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD4, InputManager::JOYPAD_BTN::DOWN))
+	{
+		player4ReadyFlag_ = true;
+	}
+	if (input.IsTrgDown(KEY_INPUT_SPACE))
+	{
+		player1ReadyFlag_ = true;
+		player2ReadyFlag_ = true;
+		player3ReadyFlag_ = true;
+		player4ReadyFlag_ = true;
+	}
+
+	if(
+		player1ReadyFlag_ && 
+		player2ReadyFlag_ &&
+		player3ReadyFlag_ && 
+		player4ReadyFlag_
+		)
 	{
 		//	TODO:ここにカウントダウン演出を追加して、カウントダウンが終わったらinTypeGameが変わるようにする
-		inTypeGame_ = InSceneType::INGAME;
-		Timer::GetInstance().ResetTimer();
+  		if (Timer::GetInstance().CountDown(5.0f))
+		{
+			inTypeGame_ = InSceneType::INGAME;
+			Timer::GetInstance().ResetTimer();
+		}
 	}
 }
 

@@ -37,7 +37,10 @@ void ResourceManager::Init(void)
 	////resourcesMap_.emplace(SRC::, res);
 
 	//	‰æ‘œ
-
+	res = new RES(RES_T::IMG, PATH_IMG + "magumasetumei.png");
+	resourcesMap_.emplace(SRC::IMG_READY, res);
+	res = new RES(RES_T::IMG, PATH_IMG + "ok.png");
+	resourcesMap_.emplace(SRC::IMG_ALREADY, res);
 
 	//	ƒ‚ƒfƒ‹
 	res = new RES(RES_T::MODEL, PATH_MDL + "-1");

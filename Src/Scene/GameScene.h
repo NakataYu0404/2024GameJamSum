@@ -67,6 +67,14 @@ private:
 	//	シングルトン参照
 	CollisionManager& colMng_;
 
+	//プレイヤーの準備フラグ
+	bool player1ReadyFlag_;
+	bool player2ReadyFlag_;
+	bool player3ReadyFlag_;
+	bool player4ReadyFlag_;
+
+	int imgAlready_;
+	int imgReady_;
 
 	////	折角用意したCollisionManagerを無視してゲームシーンに書かないで下さい。
 	//	void Collision();
