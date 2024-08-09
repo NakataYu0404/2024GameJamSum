@@ -33,6 +33,9 @@ GameScene::GameScene(void) : colMng_(CollisionManager::GetInstance())
 
 GameScene::~GameScene(void)
 {
+	CollisionManager::GetInstance().ClearCollider();
+	players_.clear();
+
 }
 
 void GameScene::Init(void)
