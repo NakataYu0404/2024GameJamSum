@@ -168,6 +168,7 @@ void GameScene::DrawUI(void)
 	case GameScene::InSceneType::GAMEOVER:
 		switch (winType_)
 		{
+			//	Ç±Ç±Ç…ÅAèüóòDraw
 		case GameScene::WinType::PLAYER_1:
 			break;
 		case GameScene::WinType::PLAYER_2:

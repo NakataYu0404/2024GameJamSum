@@ -29,6 +29,9 @@ public:
 	bool GetAlive(void);
 private:
 
+	//	‰ñ“]Š®—¹‚Ü‚Å‚ÌŠÔ
+	static constexpr float TIME_ROT = 0.6f;
+
 	void ProcessMove(void);
 	void Move(void);
 
@@ -36,6 +39,9 @@ private:
 	void Decelerate(void);
 
 	void AddGravity(void);
+	void Rotate(void);
+
+	void SetGoalRotate(double rotRad);
 
 	//	ÅI“I‚ÈˆÚ“®—Ê
 	VECTOR movePow_;
@@ -65,10 +71,15 @@ private:
 
 	std::shared_ptr<Transform> charactorTran_;
 
+	float rotRad_;
+
 	int ForwardKey_;
 	int BackKey_;
 	int RightKey_;
 	int LeftKey_;
 
+	Quaternion goalQuaRot_;
+	Quaternion playerRotY_;
+	float stepRotTime_;
 };
 

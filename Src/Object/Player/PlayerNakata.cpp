@@ -4,6 +4,7 @@
 #include "../../Manager/ResourceManager.h"
 #include "../../Manager/InputManager.h"
 #include "../../Manager/SceneManager.h"
+#include "../../Manager/Camera.h"
 #include "../Common/CollisionManager.h"
 #include "../Common/EffectController.h"
 #include "../Common/Sphere.h"
@@ -34,10 +35,13 @@ void Player::Update(void)
 	Decelerate();
 	AddGravity();
 
+	Rotate();
+
 	transform_->pos = movedPos_;
 
 	transform_->Update();
 	charactorTran_->pos = { transform_->pos.x,transform_->pos.y + 100.0f,transform_->pos.z };
+	charactorTran_->quaRot = playerRotY_;
 	charactorTran_->Update();
 
 	if (transform_->pos.y <= -1000.0f)
@@ -101,6 +105,8 @@ void Player::SetParam(void)
 
 	transform_->quaRot = Quaternion();
 	charactorTran_->quaRot = Quaternion();
+	charactorTran_->quaRotLocal =
+		Quaternion::Euler({ 0.0f, AsoUtility::Deg2RadF(180.0f), 0.0f });
 
 	transform_->scl = { 0.5f,0.5f,0.5f };
 	charactorTran_->scl = { 0.5f,0.5f,0.5f };
@@ -121,6 +127,11 @@ void Player::SetParam(void)
 	gravHitPosDown_ = { 0.0f,0.0f,0.0f };
 
 	isAlive_ = true;
+	rotRad_ = 0.0f;
+	playerRotY_ = Quaternion();
+	goalQuaRot_ = Quaternion();
+	stepRotTime_ = 0.0f;
+
 }
 
 void Player::OnCollision(std::weak_ptr<Collider> collider)
@@ -204,14 +215,14 @@ void Player::ProcessMove(void)
 	}
 
 	//	ƒvƒŒƒCƒ„[‚ªŒü‚«‚½‚¢Šp“x
-	//rotRad_ = stickAngle;
+	rotRad_ = stickAngle;
 
 	if (!AsoUtility::EqualsVZero(dir)) {
 
 		moveDir_ = dir;
 
 		//	‰ñ“]ˆ—
-		//SetGoalRotate(rotRad_);
+		SetGoalRotate(rotRad_);
 
 	}
 	else
@@ -219,6 +230,38 @@ void Player::ProcessMove(void)
 		moveDir_ = dir;
 	}
 
+}
+
+void Player::SetGoalRotate(double rotRad)
+{
+	VECTOR cameraRot;
+	Quaternion axis;
+	Quaternion axis2;
+
+	cameraRot = SceneManager::GetInstance().GetCamera()->GetAngles();
+	axis = Quaternion::AngleAxis(AsoUtility::RadIn2PI((double)cameraRot.y + rotRad), AsoUtility::AXIS_Y);
+
+	//	Œ»ÝÝ’è‚³‚ê‚Ä‚¢‚é‰ñ“]‚Æ‚ÌŠp“x·‚ðŽæ‚é
+	double angleDiff = Quaternion::Angle(axis, goalQuaRot_);
+
+	//	‚µ‚«‚¢’l
+	if (angleDiff > 0.01)
+	{
+		stepRotTime_ = TIME_ROT;
+	}
+
+	goalQuaRot_ = axis;
+
+}
+
+void Player::Rotate(void)
+{
+
+	stepRotTime_ -= scnMng_.GetDeltaTime();
+
+	//	‰ñ“]‚Ì‹…–Ê•âŠÔ
+	playerRotY_ = Quaternion::Slerp(
+		playerRotY_, goalQuaRot_, (TIME_ROT - stepRotTime_) / TIME_ROT);
 }
 
 
