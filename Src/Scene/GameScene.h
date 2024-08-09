@@ -92,6 +92,7 @@ private:
 	int sndDecide_;
 	int sndGameStart_;
 	int sndGameEnd_;
+	int sndBGM_;
 
 	////	折角用意したCollisionManagerを無視してゲームシーンに書かないで下さい。
 	//	void Collision();

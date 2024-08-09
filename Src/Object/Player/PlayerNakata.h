@@ -81,5 +81,10 @@ private:
 	Quaternion goalQuaRot_;
 	Quaternion playerRotY_;
 	float stepRotTime_;
+
+	// ‰¹’Ç‰Á‚µ‚Ü‚·
+	int sndRoll_;
+	int sndHit_;
+
 };
 
