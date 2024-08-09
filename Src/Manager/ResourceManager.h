@@ -19,6 +19,7 @@ public:
 		//	ƒ‚ƒfƒ‹ MDL_
 		MDL_NONE,
 		MDL_STAGE,
+		MDL_ROCK,
 		MDL_MAGMA,
 
 		MDL_PLAYER_BALL1,

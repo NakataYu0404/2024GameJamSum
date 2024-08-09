@@ -97,7 +97,7 @@ void TitleScene::DrawUI(void)
 	DrawFormatString(0, 0, 0xffffff, "Title");
 
 	//ƒ^ƒCƒgƒ‹ƒƒS
-	for (int i = TITLE_LOGO_NUM; i >= 0; i--)
+	for (int i = TITLE_LOGO_NUM - 1; i >= 0; i--)
 	{
 		DrawRotaGraph(titleLogoPos_[i].x, titleLogoPos_[i].y, titleLogoBackScale_[i], 0.0, titleLogoImg_[i], true);
 	}

@@ -20,5 +20,6 @@ public:
 
 private:
 
+	std::vector<std::shared_ptr<Transform>> rock_;
 };
 
