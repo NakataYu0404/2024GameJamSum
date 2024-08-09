@@ -103,16 +103,16 @@ void Player::OnCollision(std::weak_ptr<Collider> collider)
 	switch (collider.lock()->category_)
 	{
 	case Collider::Category::PLAYER1:
-		AddSpeed_ = AsoUtility::VDiv(VAdd(AddSpeed_, AsoUtility::VNormalize(AsoUtility::DistanceV(players_[0].lock()->GetTransform().lock()->pos, transform_->pos))), 5.0f);
+		AddSpeed_ = AsoUtility::VDiv(VAdd(AddSpeed_, AsoUtility::VNormalize(AsoUtility::DistanceV(players_[0].lock()->GetTransform().lock()->pos, transform_->pos))), 3.0f);
 		break;
 	case Collider::Category::PLAYER2:
-		AddSpeed_ = AsoUtility::VDiv(VAdd(AddSpeed_, AsoUtility::VNormalize(AsoUtility::DistanceV(players_[1].lock()->GetTransform().lock()->pos, transform_->pos))), 5.0f);
+		AddSpeed_ = AsoUtility::VDiv(VAdd(AddSpeed_, AsoUtility::VNormalize(AsoUtility::DistanceV(players_[1].lock()->GetTransform().lock()->pos, transform_->pos))), 3.0f);
 		break;
 	case Collider::Category::PLAYER3:
-		AddSpeed_ = AsoUtility::VDiv(VAdd(AddSpeed_, AsoUtility::VNormalize(AsoUtility::DistanceV(players_[2].lock()->GetTransform().lock()->pos, transform_->pos))), 5.0f);
+		AddSpeed_ = AsoUtility::VDiv(VAdd(AddSpeed_, AsoUtility::VNormalize(AsoUtility::DistanceV(players_[2].lock()->GetTransform().lock()->pos, transform_->pos))), 3.0f);
 		break;
 	case Collider::Category::PLAYER4:
-		AddSpeed_ = AsoUtility::VDiv(VAdd(AddSpeed_, AsoUtility::VNormalize(AsoUtility::DistanceV(players_[3].lock()->GetTransform().lock()->pos, transform_->pos))), 5.0f);
+		AddSpeed_ = AsoUtility::VDiv(VAdd(AddSpeed_, AsoUtility::VNormalize(AsoUtility::DistanceV(players_[3].lock()->GetTransform().lock()->pos, transform_->pos))), 3.0f);
 		break;
 	case Collider::Category::STAGE:
 		transform_->pos = collider.lock()->hitInfo_.movedPos;
