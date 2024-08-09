@@ -14,6 +14,7 @@ public:
 		//	‰æ‘œ IMG_‚©‚çŽn‚ß‚é‚±‚Æ
 		//	—áFIMG_TITLE
 
+
 		//	ƒ‚ƒfƒ‹ MDL_
 		MDL_NONE,
 		MDL_STAGE,
