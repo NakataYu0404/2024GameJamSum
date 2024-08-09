@@ -105,6 +105,8 @@ void ResourceManager::Init(void)
 	resourcesMap_.emplace(SRC::SND_ROLL_3, res);
 	res = new RES(RES_T::SOUND, PATH_SND + "korogaru4.mp3");
 	resourcesMap_.emplace(SRC::SND_ROLL_4, res);
+	res = new RES(RES_T::SOUND, PATH_SND + "Hit.mp3");
+	resourcesMap_.emplace(SRC::SND_HIT, res);
 	res = new RES(RES_T::SOUND, PATH_SND + "BGM.mp3");
 	resourcesMap_.emplace(SRC::SND_BGM, res);
 
