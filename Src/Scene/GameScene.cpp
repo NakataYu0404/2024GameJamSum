@@ -82,6 +82,7 @@ void GameScene::Init(void)
 	sndDecide_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::SND_DECIDE).handleId_;
 	sndGameStart_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::SND_GAME_START).handleId_;
 	sndGameEnd_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::SND_GAME_END).handleId_;
+	sndBGM_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::SND_BGM).handleId_;
 }
 
 void GameScene::Update(void)
@@ -245,6 +246,7 @@ void GameScene::UpdateReady(void)
 			inTypeGame_ = InSceneType::INGAME;
 			Timer::GetInstance().ResetTimer();
 			PlaySoundMem(sndGameStart_, DX_PLAYTYPE_BACK);
+			PlaySoundMem(sndBGM_, DX_PLAYTYPE_BACK);
 		}
 	}
 }
@@ -270,18 +272,26 @@ void GameScene::UpdateInGame(void)
 		if (!players_[0]->GetAlive() && !players_[1]->GetAlive() && !players_[2]->GetAlive())
 		{
 			GoGameOver(WinType::PLAYER_4);
+			PlaySoundMem(sndGameEnd_, DX_PLAYTYPE_BACK);
+			StopSoundMem(sndBGM_);
 		}
 		if (!players_[0]->GetAlive() && !players_[2]->GetAlive() && !players_[3]->GetAlive())
 		{
 			GoGameOver(WinType::PLAYER_2);
+			PlaySoundMem(sndGameEnd_, DX_PLAYTYPE_BACK);
+			StopSoundMem(sndBGM_);
 		}
 		if (!players_[1]->GetAlive() && !players_[2]->GetAlive() && !players_[3]->GetAlive())
 		{
 			GoGameOver(WinType::PLAYER_1);
+			PlaySoundMem(sndGameEnd_, DX_PLAYTYPE_BACK);
+			StopSoundMem(sndBGM_);
 		}
 		if (!players_[0]->GetAlive() && !players_[1]->GetAlive() && !players_[3]->GetAlive())
 		{
 			GoGameOver(WinType::PLAYER_3);
+			PlaySoundMem(sndGameEnd_, DX_PLAYTYPE_BACK);
+			StopSoundMem(sndBGM_);
 		}
 	}
 }

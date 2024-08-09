@@ -97,6 +97,17 @@ void ResourceManager::Init(void)
 	res = new RES(RES_T::SOUND, PATH_SND + "DecideButton.mp3");
 	resourcesMap_.emplace(SRC::SND_DECIDE, res);
 
+	res = new RES(RES_T::SOUND, PATH_SND + "korogaru1.mp3");
+	resourcesMap_.emplace(SRC::SND_ROLL_1, res);
+	res = new RES(RES_T::SOUND, PATH_SND + "korogaru2.mp3");
+	resourcesMap_.emplace(SRC::SND_ROLL_2, res);
+	res = new RES(RES_T::SOUND, PATH_SND + "korogaru3.mp3");
+	resourcesMap_.emplace(SRC::SND_ROLL_3, res);
+	res = new RES(RES_T::SOUND, PATH_SND + "korogaru4.mp3");
+	resourcesMap_.emplace(SRC::SND_ROLL_4, res);
+	res = new RES(RES_T::SOUND, PATH_SND + "BGM.mp3");
+	resourcesMap_.emplace(SRC::SND_BGM, res);
+
 	//	シェーダー
 
 

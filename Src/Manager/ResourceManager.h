@@ -42,6 +42,11 @@ public:
 		SND_GAME_START,
 		SND_GAME_END,
 		SND_DECIDE,
+		SND_ROLL_1,
+		SND_ROLL_2,
+		SND_ROLL_3,
+		SND_ROLL_4,
+		SND_BGM,
 
 
 	};
