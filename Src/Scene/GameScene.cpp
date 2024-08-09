@@ -76,7 +76,7 @@ void GameScene::Init(void)
 	imgAlready_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::IMG_ALREADY).handleId_;
 	imgReady_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::IMG_READY).handleId_;
 
-	sndWin_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::SND_WIN).handleId_;
+	sndGameStart_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::SND_GAME_START).handleId_;
 }
 
 void GameScene::Update(void)
@@ -233,7 +233,7 @@ void GameScene::UpdateReady(void)
 		{
 			inTypeGame_ = InSceneType::INGAME;
 			Timer::GetInstance().ResetTimer();
-			PlaySoundMem(sndWin_, DX_PLAYTYPE_BACK);
+			PlaySoundMem(sndGameStart_, DX_PLAYTYPE_BACK);
 		}
 	}
 }

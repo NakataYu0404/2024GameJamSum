@@ -90,6 +90,10 @@ void ResourceManager::Init(void)
 	//	サウンド
 	res = new RES(RES_T::SOUND, PATH_SND + "Win.mp3");
 	resourcesMap_.emplace(SRC::SND_WIN, res);
+	res = new RES(RES_T::SOUND, PATH_SND + "GameStart.mp3");
+	resourcesMap_.emplace(SRC::SND_GAME_START, res);
+	res = new RES(RES_T::SOUND, PATH_SND + "GameEnd.mp3");
+	resourcesMap_.emplace(SRC::SND_GAME_END, res);
 
 	//	シェーダー
 
