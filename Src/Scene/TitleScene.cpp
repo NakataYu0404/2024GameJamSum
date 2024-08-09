@@ -26,8 +26,11 @@ void TitleScene::Init(void)
 	titleLogoImg_[0] = LoadGraph((Application::PATH_IMAGE + "Title1.png").c_str());
 	titleLogoImg_[1] = LoadGraph((Application::PATH_IMAGE + "Title2.png").c_str());
 
-	titleLogoPos_[0] = { Application::SCREEN_SIZE_X / 2 , TITLE_LOGO_DEFAULT_POS_Y };
-	titleLogoPos_[1] = { Application::SCREEN_SIZE_X / 2 , 0 };
+	for (int i = 0; i < TITLE_LOGO_NUM; i++)
+	{
+		titleLogoPos_[i] = { Application::SCREEN_SIZE_X / 2 , 0 };
+		titleLogoShiftTime_[i] = 0;
+	}
 }
 
 void TitleScene::Update(void)
@@ -39,13 +42,23 @@ void TitleScene::Update(void)
 		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME);
 	}
 
-	if (titleLogoShiftTime_ < SceneManager::GetInstance().GetDeltaTime() * 3.0f)
+	//タイトルロゴの下部の動き
+	if (titleLogoShiftTime_[0] < TITLE_LOGO_UNDER_SHIFT_TIME)
 	{
-		titleLogoShiftTime_++;
-		//TODO タイトルロゴの動き
-		//titleLogoPos_[1] = SineOut(titleLogoShiftTime_
-		//	, SceneManager::GetInstance().GetDeltaTime() * 3.0f
-		//	,)
+		titleLogoShiftTime_[0]++;
+		titleLogoPos_[0].y = SineOut(titleLogoShiftTime_[0]
+			, TITLE_LOGO_UNDER_SHIFT_TIME
+			, -TITLE_LOGO_SIZE_Y
+			, TITLE_LOGO_DEFAULT_POS_Y);
+	}
+	//タイトルロゴの上部の動き
+	if (titleLogoShiftTime_[1] < TITLE_LOGO_TOP_SHIFT_TIME)
+	{
+		titleLogoShiftTime_[1]++;
+		titleLogoPos_[1].y = QuintIn(titleLogoShiftTime_[1]
+			, TITLE_LOGO_TOP_SHIFT_TIME
+			, -TITLE_LOGO_SIZE_Y
+			, TITLE_LOGO_DEFAULT_POS_Y);
 	}
 }
 
@@ -72,7 +85,7 @@ void TitleScene::DrawUI(void)
 	//タイトルロゴ
 	for (int i = 0; i < TITLE_LOGO_NUM; i++)
 	{
-		DrawRotaGraph(Application::SCREEN_SIZE_X / 2, 300, 1.0, 0.0, titleLogoImg_[i], true);
+		DrawRotaGraph(titleLogoPos_[i].x, titleLogoPos_[i].y, 1.0, 0.0, titleLogoImg_[i], true);
 	}
 
 	//push key

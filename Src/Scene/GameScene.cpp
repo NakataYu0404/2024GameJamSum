@@ -171,7 +171,7 @@ void GameScene::UpdateInGame(void)
 
 	//	if(Œˆ’…)
 	//	{	
-			if(players_[0]->GetAlive())
+			//if(players_[0]->GetAlive())
 	//		if (InputManager::GetInstance().IsTrgDown(KEY_INPUT_NUMPAD0))
 	//		{
 	//			inTypeGame_ = InSceneType::GAMEOVER;

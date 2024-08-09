@@ -32,6 +32,10 @@ private:
 	//タイトルロゴの基本位置
 	static constexpr int TITLE_LOGO_DEFAULT_POS_Y = 300;
 
+	//タイトルロゴの移動時間
+	static constexpr float TITLE_LOGO_UNDER_SHIFT_TIME = 60.0f * 2.0f;
+	static constexpr float TITLE_LOGO_TOP_SHIFT_TIME = 60.0f * 3.0f;
+
 	void Draw3D(void) override;
 	void Draw2D(void) override;
 	void DrawUI(void) override;
@@ -43,5 +47,5 @@ private:
 	Vector2 titleLogoPos_[TITLE_LOGO_NUM];
 
 	//タイトルロゴの移動時間
-	int titleLogoShiftTime_;
+	int titleLogoShiftTime_[TITLE_LOGO_NUM];
 };
