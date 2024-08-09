@@ -4,6 +4,7 @@
 #include "../../Manager/SceneManager.h"
 #include "../Common/CollisionManager.h"
 #include "../Common/Collider.h"
+#include "../../Utility/AsoUtility.h"
 #include "Stage.h"
 
 Stage::Stage()
@@ -76,31 +77,40 @@ void Stage::SetParam(void)
 		{
 			rock->pos = { -1400.0f ,-400.0f,1000.0f };
 			rock->quaRot = Quaternion();
+			rock->quaRot = Quaternion().Mult(rock->quaRot, Quaternion().AngleAxis(AsoUtility::Deg2RadF(90.0f), AsoUtility::AXIS_Z));
 			rock->scl = { 0.3f,0.3f,0.3f };
 		}
 		else if (x <= 1)
 		{
 			rock->pos = { -800.0f ,-400.0f ,1500.0f };
 			rock->quaRot = Quaternion();
+			rock->quaRot = Quaternion().Mult(rock->quaRot, Quaternion().AngleAxis(AsoUtility::Deg2RadF(180.0f), AsoUtility::AXIS_Z));
+
 			rock->scl = { 0.5f,0.5f,0.5f };
 		}
 		else if (x <= 2)
 		{
 			rock->pos = { 900.0f ,-400.0f ,300.0f };
 			rock->quaRot = Quaternion();
+			rock->quaRot = Quaternion().Mult(rock->quaRot, Quaternion().AngleAxis(AsoUtility::Deg2RadF(270.0f), AsoUtility::AXIS_Z));
+
 			rock->scl = { 0.3f,0.3f,0.3f };
 		}
 		else if (x <= 3)
 		{
 			rock->pos = { -800.0f ,-400.0f ,0.0f };
 			rock->quaRot = Quaternion();
+			rock->quaRot = Quaternion().Mult(rock->quaRot, Quaternion().AngleAxis(AsoUtility::Deg2RadF(0.0f), AsoUtility::AXIS_Z));
+
 			rock->scl = { 0.5f,0.5f,0.5f };
 		}
 		else if (x <= 4)
 		{
 			rock->pos = { 600.0f ,-400.0f ,1500.0f };
 			rock->quaRot = Quaternion();
-			rock->scl = { 0.3f,0.3f,0.3f };
+			rock->quaRot = Quaternion().Mult(rock->quaRot, Quaternion().AngleAxis(AsoUtility::Deg2RadF(90.0f), AsoUtility::AXIS_Z));
+
+			rock->scl = { 0.5f,0.5f,0.5f };
 		}
 		else
 		{
