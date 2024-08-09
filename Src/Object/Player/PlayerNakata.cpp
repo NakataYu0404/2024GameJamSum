@@ -5,6 +5,7 @@
 #include "../../Manager/InputManager.h"
 #include "../../Manager/SceneManager.h"
 #include "../../Manager/Camera.h"
+#include "../Common/AnimationController.h"
 #include "../Common/CollisionManager.h"
 #include "../Common/EffectController.h"
 #include "../Common/Sphere.h"
@@ -25,6 +26,10 @@ void Player::Init(void)
 	charactorTran_ = std::make_shared<Transform>();
 
 	SetParam();
+
+	// ‰¹’Ç‰Á‚µ‚Ü‚·
+	sndRoll_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::SND_ROLL_1).handleId_;
+	sndHit_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::SND_HIT).handleId_;
 }
 
 void Player::Update(void)
@@ -59,6 +64,7 @@ void Player::Draw(void)
 
 void Player::SetParam(void)
 {
+
 	auto& resIns = resMng_.GetInstance();
 
 	sphere_ = std::make_shared<Sphere>(transform_);
@@ -73,6 +79,7 @@ void Player::SetParam(void)
 		charactorTran_->pos = { transform_->pos.x,transform_->pos.y + 100.0f,transform_->pos.z };
 
 		transform_->MakeCollider(Collider::Category::PLAYER1, Collider::TYPE::SPHERE);
+		
 		break;
 	case 1:
 		transform_->SetModel(resIns.LoadModelDuplicate(ResourceManager::SRC::MDL_PLAYER_BALL2));
@@ -137,6 +144,10 @@ void Player::SetParam(void)
 void Player::OnCollision(std::weak_ptr<Collider> collider)
 {
 	int i = 0;
+
+	// ‰¹’Ç‰Á‚µ‚Ü‚·
+	PlaySoundMem(sndHit_, DX_PLAYTYPE_BACK);
+
 	switch (collider.lock()->category_)
 	{
 	case Collider::Category::PLAYER1:

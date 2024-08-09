@@ -51,6 +51,7 @@ public:
 		SND_ROLL_2,
 		SND_ROLL_3,
 		SND_ROLL_4,
+		SND_HIT,
 		SND_BGM,
 
 

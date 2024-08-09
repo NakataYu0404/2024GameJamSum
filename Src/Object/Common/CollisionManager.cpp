@@ -226,6 +226,8 @@ void CollisionManager::AddCollider(std::weak_ptr<Collider> collider)
 void CollisionManager::ClearCollider(void)
 {
 	colliders_.clear();
+	actors_.clear();
+	categoryMap_.clear();
 }
 
 Collider::Collision_Date CollisionManager::Capsule2Model_Collider_PushBack(const std::weak_ptr<ActorBase> actor, const std::weak_ptr<Transform> transform)
