@@ -1,4 +1,5 @@
 #include"../Application.h"
+#include"../Manager/SceneManager.h"
 #include"Timer.h"
 
 //シングルトン化
@@ -32,9 +33,9 @@ void Timer::Init(void)
 		, numberImg_);
 
 	//変数の初期化
-	counter_ = COUNTER_ZERO;
-	nowCount_ = GetNowCount();
+	ResetTimer();
 	framePos_ = { Application::SCREEN_SIZE_X / 2, FRAME_SIZE_Y / 2 + FRAME_SHIFT_POS_Y };
+	ResetCountDownTimer();
 }
 
 void Timer::Update(void)
@@ -57,6 +58,21 @@ void Timer::Draw(void)
 	DrawRotaGraph(framePos_.x  + NUMBER_SIZE_X, framePos_.y, 1.0, 0.0, numberImg_[(TIME_LIMIT.Sec - counter_.Sec) % 10], true);
 }
 
+void Timer::CountDownDraw(void)
+{
+	//カウントダウンタイマーがセットされているなら
+	if (countDownTime_ != 0.0f)
+	{
+		//カウントダウンの描画
+		DrawRotaGraph(Application::SCREEN_SIZE_X / 2
+			, Application::SCREEN_SIZE_Y / 2
+			, 3.0
+			, 0.0
+			, numberImg_[static_cast<int>(countDownTime_ - countDownCounter_) + 1]
+			, true);
+	}
+}
+
 void Timer::Release(void)
 {
 }
@@ -70,6 +86,31 @@ void Timer::ResetTimer(void)
 bool Timer::IsTimeOver(void)
 {
 	return counter_.Sec >= TIME_LIMIT.Sec;
+}
+
+bool Timer::CountDown(const float _countTime)
+{
+	countDownTime_ = _countTime;
+	countDownCounter_ += SceneManager::GetInstance().GetDeltaTime();
+
+	//指定秒数経ったら
+	if (countDownCounter_ > _countTime)
+	{
+		//カウンタの初期化
+		ResetCountDownTimer();
+
+		//指定秒数経った
+		return true;
+	}
+
+	//指定秒数経っていない
+	return false;
+}
+
+void Timer::ResetCountDownTimer(void)
+{
+	countDownCounter_ = 0.0f;
+	countDownTime_ = 0.0f;
 }
 
 void Timer::CreateInstance(void)

@@ -41,16 +41,27 @@ public:
 	//関数
 	//--------------------
 
-	void Init(void);
-	void Update(void);
-	void Draw(void);
-	void Release(void);
+	void Init(void);			//初期化処理
+	void Update(void);			//更新処理
+	void Draw(void);			//描画処理
+	void CountDownDraw(void);	//カウントダウンの描画処理
+	void Release(void);			//解放処理
 
 	//タイマーのリセット
 	void ResetTimer(void);
 
 	//制限時間超過判定を返す
 	bool IsTimeOver(void);
+
+	/// <summary>
+	/// カウントダウン
+	/// </summary>
+	/// <param name="_countTime">カウントする秒数</param>
+	/// <returns>カウントしきったらtrue</returns>
+	bool CountDown(const float _countTime);
+
+	//カウントダウンタイマーのリセット
+	void ResetCountDownTimer(void);
 
 	//シングルトン化
 	//--------------------------
@@ -95,4 +106,10 @@ private:
 
 	//数字の画像
 	int numberImg_[10];
+
+	//カウントダウンカウンタ
+	float countDownCounter_;
+
+	//カウントダウン時間保存
+	float countDownTime_;
 };
