@@ -60,7 +60,7 @@ void Stage::SetParam(void)
 {
 	transform_->pos = { 0.0f,0.0f,0.0f };
 	transform_->quaRot = Quaternion();
-	transform_->scl = { 1.0f,1.0f,1.0f };
+	transform_->scl = { 0.25f,1.0f,0.25f };
 
 	transform_->MakeCollider(Collider::Category::STAGE, Collider::TYPE::MODEL);
 
