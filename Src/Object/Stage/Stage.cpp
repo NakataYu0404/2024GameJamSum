@@ -76,7 +76,6 @@ void Stage::SetParam(void)
 		{
 			rock->pos = { -1400.0f ,-400.0f,1000.0f };
 			rock->quaRot = Quaternion();
-			rock->quaRot.ToMatrix({100,1,1,1});
 			rock->scl = { 0.3f,0.3f,0.3f };
 		}
 		else if (x <= 1)
