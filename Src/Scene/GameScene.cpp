@@ -206,7 +206,6 @@ void GameScene::DrawUI(void)
 		break;
 	}
 
-	DrawFormatString(0, 0, 0xffffff, "Game");
 
 }
 

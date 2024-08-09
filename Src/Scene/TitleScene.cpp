@@ -97,8 +97,6 @@ void TitleScene::DrawUI(void)
 	int font;
 	font = CreateFontToHandle(NULL, 50, 5);
 
-	DrawFormatString(0, 0, 0xffffff, "Title");
-
 	//ƒ^ƒCƒgƒ‹ƒƒS
 	for (int i = TITLE_LOGO_NUM - 1; i >= 0; i--)
 	{
