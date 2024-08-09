@@ -25,12 +25,17 @@ void TitleScene::Init(void)
 	//タイトル画像
 	titleLogoImg_[0] = LoadGraph((Application::PATH_IMAGE + "Title1.png").c_str());
 	titleLogoImg_[1] = LoadGraph((Application::PATH_IMAGE + "Title2.png").c_str());
+	titleLogoImg_[2] = LoadGraph((Application::PATH_IMAGE + "Title3.png").c_str());
 
 	for (int i = 0; i < TITLE_LOGO_NUM; i++)
 	{
 		titleLogoPos_[i] = { Application::SCREEN_SIZE_X / 2 , 0 };
 		titleLogoShiftTime_[i] = 0;
+		titleLogoBackScale_[i] = 1.0f;
 	}
+
+	titleLogoPos_[2] = { Application::SCREEN_SIZE_X / 2 , TITLE_LOGO_DEFAULT_POS_Y };
+	titleLogoBackScale_[2] = 0.0f;
 }
 
 void TitleScene::Update(void)
@@ -60,6 +65,15 @@ void TitleScene::Update(void)
 			, -TITLE_LOGO_SIZE_Y
 			, TITLE_LOGO_DEFAULT_POS_Y);
 	}
+	//タイトルロゴ背景の動き(タイトルロゴの上部の動きが終わったら)
+	else if (titleLogoShiftTime_[2] < TITLE_LOGO_BACK_SHIFT_TIME)
+	{
+		titleLogoShiftTime_[2]++;
+		titleLogoBackScale_[2] = QuintIn(titleLogoShiftTime_[2]
+			, TITLE_LOGO_BACK_SHIFT_TIME
+			, 0.0f
+			, 1.0f);
+	}
 }
 
 //void TitleScene::Draw(void)
@@ -83,9 +97,9 @@ void TitleScene::DrawUI(void)
 	DrawFormatString(0, 0, 0xffffff, "Title");
 
 	//タイトルロゴ
-	for (int i = 0; i < TITLE_LOGO_NUM; i++)
+	for (int i = TITLE_LOGO_NUM; i >= 0; i--)
 	{
-		DrawRotaGraph(titleLogoPos_[i].x, titleLogoPos_[i].y, 1.0, 0.0, titleLogoImg_[i], true);
+		DrawRotaGraph(titleLogoPos_[i].x, titleLogoPos_[i].y, titleLogoBackScale_[i], 0.0, titleLogoImg_[i], true);
 	}
 
 	//push key

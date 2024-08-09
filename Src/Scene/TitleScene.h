@@ -27,7 +27,7 @@ private:
 	static constexpr int TITLE_LOGO_SIZE_Y = 400;
 
 	//タイトルロゴの合計数
-	static constexpr int TITLE_LOGO_NUM = 2;
+	static constexpr int TITLE_LOGO_NUM = 3;
 
 	//タイトルロゴの基本位置
 	static constexpr int TITLE_LOGO_DEFAULT_POS_Y = 300;
@@ -35,6 +35,7 @@ private:
 	//タイトルロゴの移動時間
 	static constexpr float TITLE_LOGO_UNDER_SHIFT_TIME = 60.0f * 2.0f;
 	static constexpr float TITLE_LOGO_TOP_SHIFT_TIME = 60.0f * 3.0f;
+	static constexpr float TITLE_LOGO_BACK_SHIFT_TIME = 60.0f * 1.0f;
 
 	void Draw3D(void) override;
 	void Draw2D(void) override;
@@ -48,4 +49,7 @@ private:
 
 	//タイトルロゴの移動時間
 	int titleLogoShiftTime_[TITLE_LOGO_NUM];
+
+	//タイトルロゴの背景の大きさ用
+	float titleLogoBackScale_[TITLE_LOGO_NUM];
 };
