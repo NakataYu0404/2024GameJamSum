@@ -41,6 +41,7 @@ public:
 		SND_WIN,
 		SND_GAME_START,
 		SND_GAME_END,
+		SND_DECIDE,
 
 
 	};

@@ -94,6 +94,8 @@ void ResourceManager::Init(void)
 	resourcesMap_.emplace(SRC::SND_GAME_START, res);
 	res = new RES(RES_T::SOUND, PATH_SND + "GameEnd.mp3");
 	resourcesMap_.emplace(SRC::SND_GAME_END, res);
+	res = new RES(RES_T::SOUND, PATH_SND + "DecideButton.mp3");
+	resourcesMap_.emplace(SRC::SND_DECIDE, res);
 
 	//	シェーダー
 

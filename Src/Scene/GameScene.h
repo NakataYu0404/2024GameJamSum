@@ -89,7 +89,9 @@ private:
 	int imgAlready_;
 	int imgReady_;
 
+	int sndDecide_;
 	int sndGameStart_;
+	int sndGameEnd_;
 
 	////	折角用意したCollisionManagerを無視してゲームシーンに書かないで下さい。
 	//	void Collision();
