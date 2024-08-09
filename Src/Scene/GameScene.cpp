@@ -75,6 +75,10 @@ void GameScene::Init(void)
 
 	imgAlready_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::IMG_ALREADY).handleId_;
 	imgReady_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::IMG_READY).handleId_;
+
+	sndDecide_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::SND_DECIDE).handleId_;
+	sndGameStart_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::SND_GAME_START).handleId_;
+	sndGameEnd_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::SND_GAME_END).handleId_;
 }
 
 void GameScene::Update(void)
@@ -162,6 +166,21 @@ void GameScene::DrawUI(void)
 		Timer::GetInstance().Draw();
 		break;
 	case GameScene::InSceneType::GAMEOVER:
+		switch (winType_)
+		{
+			//	‚±‚±‚ÉAŸ—˜Draw
+		case GameScene::WinType::PLAYER_1:
+			break;
+		case GameScene::WinType::PLAYER_2:
+			break;
+		case GameScene::WinType::PLAYER_3:
+			break;
+		case GameScene::WinType::PLAYER_4:
+			break;
+		case GameScene::WinType::DRAW:
+			break;
+		}
+
 		break;
 	default:
 		break;
@@ -171,6 +190,12 @@ void GameScene::DrawUI(void)
 
 }
 
+void GameScene::GoGameOver(WinType type)
+{
+	winType_ = type;
+	inTypeGame_ = InSceneType::GAMEOVER;
+}
+
 void GameScene::UpdateReady(void)
 {
 	auto& input = InputManager::GetInstance();
@@ -178,18 +203,22 @@ void GameScene::UpdateReady(void)
 	if (input.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD1, InputManager::JOYPAD_BTN::DOWN))
 	{
 		player1ReadyFlag_ = true;
+		PlaySoundMem(sndDecide_, DX_PLAYTYPE_BACK);
 	}
 	if (input.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD2, InputManager::JOYPAD_BTN::DOWN))
 	{
 		player2ReadyFlag_ = true;
+		PlaySoundMem(sndDecide_, DX_PLAYTYPE_BACK);
 	}
 	if (input.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD3, InputManager::JOYPAD_BTN::DOWN))
 	{
 		player3ReadyFlag_ = true;
+		PlaySoundMem(sndDecide_, DX_PLAYTYPE_BACK);
 	}
 	if (input.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD4, InputManager::JOYPAD_BTN::DOWN))
 	{
 		player4ReadyFlag_ = true;
+		PlaySoundMem(sndDecide_, DX_PLAYTYPE_BACK);
 	}
 	if (input.IsTrgDown(KEY_INPUT_SPACE))
 	{
@@ -197,6 +226,7 @@ void GameScene::UpdateReady(void)
 		player2ReadyFlag_ = true;
 		player3ReadyFlag_ = true;
 		player4ReadyFlag_ = true;
+		PlaySoundMem(sndDecide_, DX_PLAYTYPE_BACK);
 	}
 
 	if(
@@ -211,6 +241,7 @@ void GameScene::UpdateReady(void)
 		{
 			inTypeGame_ = InSceneType::INGAME;
 			Timer::GetInstance().ResetTimer();
+			PlaySoundMem(sndGameStart_, DX_PLAYTYPE_BACK);
 		}
 	}
 }
@@ -227,16 +258,29 @@ void GameScene::UpdateInGame(void)
 	colMng_.Update();
 
 
-	//	if(Œˆ’…)
-	//	{	
-	if (players_[0]->GetAlive())
+	if (Timer::GetInstance().IsTimeOver())
 	{
+		GoGameOver(WinType::DRAW);
 	}
-	//		if (InputManager::GetInstance().IsTrgDown(KEY_INPUT_NUMPAD0))
-	//		{
-	//			inTypeGame_ = InSceneType::GAMEOVER;
-	//		}
-	//	}
+	else
+	{
+		if (!players_[0]->GetAlive() && !players_[1]->GetAlive() && !players_[2]->GetAlive())
+		{
+			GoGameOver(WinType::PLAYER_4);
+		}
+		if (!players_[0]->GetAlive() && !players_[2]->GetAlive() && !players_[3]->GetAlive())
+		{
+			GoGameOver(WinType::PLAYER_2);
+		}
+		if (!players_[1]->GetAlive() && !players_[2]->GetAlive() && !players_[3]->GetAlive())
+		{
+			GoGameOver(WinType::PLAYER_1);
+		}
+		if (!players_[0]->GetAlive() && !players_[1]->GetAlive() && !players_[3]->GetAlive())
+		{
+			GoGameOver(WinType::PLAYER_3);
+		}
+	}
 }
 
 void GameScene::UpdateOver(void)

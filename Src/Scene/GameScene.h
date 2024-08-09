@@ -33,6 +33,15 @@ public:
 		GAMEOVER,
 	};
 
+	enum class WinType
+	{
+		PLAYER_1,
+		PLAYER_2,
+		PLAYER_3,
+		PLAYER_4,
+		DRAW,
+	};
+
 	static constexpr int PLAYERNUM_MAX = 4;
 
 	//	コンストラクタ
@@ -55,9 +64,13 @@ private:
 	void Draw2D(void) override;
 	void DrawUI(void) override;
 
+	void GoGameOver(WinType type);
 
 	//	今、ゲームシーン内のどこか
 	InSceneType inTypeGame_;
+
+	//	誰が勝ったのか
+	WinType winType_;
 
 	std::shared_ptr<Stage> stage_;
 	std::shared_ptr<Magma> magma_;
@@ -75,6 +88,10 @@ private:
 
 	int imgAlready_;
 	int imgReady_;
+
+	int sndDecide_;
+	int sndGameStart_;
+	int sndGameEnd_;
 
 	////	折角用意したCollisionManagerを無視してゲームシーンに書かないで下さい。
 	//	void Collision();
