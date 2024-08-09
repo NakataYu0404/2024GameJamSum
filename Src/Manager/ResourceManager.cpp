@@ -46,6 +46,9 @@ void ResourceManager::Init(void)
 	res = new RES(RES_T::MODEL, PATH_MDL + "Stage/stage.mv1");
 	resourcesMap_.emplace(SRC::MDL_STAGE, res);
 
+	res = new RES(RES_T::MODEL, PATH_MDL + "Stage/rock.mv1");
+	resourcesMap_.emplace(SRC::MDL_ROCK, res);
+
 	res = new RES(RES_T::MODEL, PATH_MDL + "Stage/Magma/magma.mv1");
 	resourcesMap_.emplace(SRC::MDL_MAGMA, res);
 
