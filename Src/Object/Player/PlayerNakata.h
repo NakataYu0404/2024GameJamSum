@@ -43,6 +43,8 @@ private:
 
 	void SetGoalRotate(double rotRad);
 
+	//void
+
 	//	ÅI“I‚ÈˆÚ“®—Ê
 	VECTOR movePow_;
 
