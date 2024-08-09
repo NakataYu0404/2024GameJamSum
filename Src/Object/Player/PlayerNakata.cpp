@@ -40,7 +40,7 @@ void Player::Update(void)
 void Player::Draw(void)
 {
 	MV1DrawModel(transform_->modelId);
-	DrawSphere3D(sphere_->GetPos(), sphere_->GetRadius(),16, 0xffffff, 0xffffff, true);
+	//DrawSphere3D(sphere_->GetPos(), sphere_->GetRadius(),16, 0xffffff, 0xffffff, true);
 }
 
 void Player::SetParam(void)
@@ -58,19 +58,19 @@ void Player::SetParam(void)
 		transform_->MakeCollider(Collider::Category::PLAYER1, Collider::TYPE::SPHERE);
 		break;
 	case 1:
-		transform_->SetModel(resIns.LoadModelDuplicate(ResourceManager::SRC::MDL_PLAYER_BALL1));
+		transform_->SetModel(resIns.LoadModelDuplicate(ResourceManager::SRC::MDL_PLAYER_BALL2));
 		transform_->pos = { -100.0f,0.0f,-100.0f };
 
 		transform_->MakeCollider(Collider::Category::PLAYER2, Collider::TYPE::SPHERE);
 		break;
 	case 2:
-		transform_->SetModel(resIns.LoadModelDuplicate(ResourceManager::SRC::MDL_PLAYER_BALL1));
+		transform_->SetModel(resIns.LoadModelDuplicate(ResourceManager::SRC::MDL_PLAYER_BALL3));
 		transform_->pos = { 100.0f,0.0f,100.0f };
 
 		transform_->MakeCollider(Collider::Category::PLAYER3, Collider::TYPE::SPHERE);
 		break;
 	case 3:
-		transform_->SetModel(resIns.LoadModelDuplicate(ResourceManager::SRC::MDL_PLAYER_BALL1));
+		transform_->SetModel(resIns.LoadModelDuplicate(ResourceManager::SRC::MDL_PLAYER_BALL4));
 		transform_->pos = { 100.0f,0.0f,-100.0f };
 
 		transform_->MakeCollider(Collider::Category::PLAYER4, Collider::TYPE::SPHERE);
@@ -106,13 +106,13 @@ void Player::OnCollision(std::weak_ptr<Collider> collider)
 		AddSpeed_ = AsoUtility::VDiv(VAdd(AddSpeed_, AsoUtility::VNormalize(AsoUtility::DistanceV(players_[0].lock()->GetTransform().lock()->pos, transform_->pos))), 5.0f);
 		break;
 	case Collider::Category::PLAYER2:
-		AddSpeed_ = AsoUtility::VDiv(VAdd(AddSpeed_, AsoUtility::VNormalize(AsoUtility::DistanceV(players_[0].lock()->GetTransform().lock()->pos, transform_->pos))), 5.0f);
+		AddSpeed_ = AsoUtility::VDiv(VAdd(AddSpeed_, AsoUtility::VNormalize(AsoUtility::DistanceV(players_[1].lock()->GetTransform().lock()->pos, transform_->pos))), 5.0f);
 		break;
 	case Collider::Category::PLAYER3:
-		AddSpeed_ = AsoUtility::VDiv(VAdd(AddSpeed_, AsoUtility::VNormalize(AsoUtility::DistanceV(players_[0].lock()->GetTransform().lock()->pos, transform_->pos))), 5.0f);
+		AddSpeed_ = AsoUtility::VDiv(VAdd(AddSpeed_, AsoUtility::VNormalize(AsoUtility::DistanceV(players_[2].lock()->GetTransform().lock()->pos, transform_->pos))), 5.0f);
 		break;
 	case Collider::Category::PLAYER4:
-		AddSpeed_ = AsoUtility::VDiv(VAdd(AddSpeed_, AsoUtility::VNormalize(AsoUtility::DistanceV(players_[0].lock()->GetTransform().lock()->pos, transform_->pos))), 5.0f);
+		AddSpeed_ = AsoUtility::VDiv(VAdd(AddSpeed_, AsoUtility::VNormalize(AsoUtility::DistanceV(players_[3].lock()->GetTransform().lock()->pos, transform_->pos))), 5.0f);
 		break;
 	case Collider::Category::STAGE:
 		transform_->pos = collider.lock()->hitInfo_.movedPos;
