@@ -38,7 +38,6 @@ void ResourceManager::Init(void)
 
 	//	‰æ‘œ
 
-
 	//	ƒ‚ƒfƒ‹
 	res = new RES(RES_T::MODEL, PATH_MDL + "-1");
 	resourcesMap_.emplace(SRC::MDL_NONE, res);
