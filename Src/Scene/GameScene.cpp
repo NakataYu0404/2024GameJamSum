@@ -76,7 +76,9 @@ void GameScene::Init(void)
 	imgAlready_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::IMG_ALREADY).handleId_;
 	imgReady_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::IMG_READY).handleId_;
 
-	sndWin_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::SND_WIN).handleId_;
+	sndDecide_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::SND_DECIDE).handleId_;
+	sndGameStart_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::SND_GAME_START).handleId_;
+	sndGameEnd_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::SND_GAME_END).handleId_;
 }
 
 void GameScene::Update(void)
@@ -166,6 +168,7 @@ void GameScene::DrawUI(void)
 	case GameScene::InSceneType::GAMEOVER:
 		switch (winType_)
 		{
+			//	Ç±Ç±Ç…ÅAèüóòDraw
 		case GameScene::WinType::PLAYER_1:
 			break;
 		case GameScene::WinType::PLAYER_2:
@@ -200,18 +203,22 @@ void GameScene::UpdateReady(void)
 	if (input.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD1, InputManager::JOYPAD_BTN::DOWN))
 	{
 		player1ReadyFlag_ = true;
+		PlaySoundMem(sndDecide_, DX_PLAYTYPE_BACK);
 	}
 	if (input.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD2, InputManager::JOYPAD_BTN::DOWN))
 	{
 		player2ReadyFlag_ = true;
+		PlaySoundMem(sndDecide_, DX_PLAYTYPE_BACK);
 	}
 	if (input.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD3, InputManager::JOYPAD_BTN::DOWN))
 	{
 		player3ReadyFlag_ = true;
+		PlaySoundMem(sndDecide_, DX_PLAYTYPE_BACK);
 	}
 	if (input.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD4, InputManager::JOYPAD_BTN::DOWN))
 	{
 		player4ReadyFlag_ = true;
+		PlaySoundMem(sndDecide_, DX_PLAYTYPE_BACK);
 	}
 	if (input.IsTrgDown(KEY_INPUT_SPACE))
 	{
@@ -219,6 +226,7 @@ void GameScene::UpdateReady(void)
 		player2ReadyFlag_ = true;
 		player3ReadyFlag_ = true;
 		player4ReadyFlag_ = true;
+		PlaySoundMem(sndDecide_, DX_PLAYTYPE_BACK);
 	}
 
 	if(
@@ -233,7 +241,7 @@ void GameScene::UpdateReady(void)
 		{
 			inTypeGame_ = InSceneType::INGAME;
 			Timer::GetInstance().ResetTimer();
-			PlaySoundMem(sndWin_, DX_PLAYTYPE_BACK);
+			PlaySoundMem(sndGameStart_, DX_PLAYTYPE_BACK);
 		}
 	}
 }
