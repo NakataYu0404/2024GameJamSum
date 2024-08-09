@@ -56,8 +56,8 @@ void Camera::SetBeforeDraw(void)
 	);
 
 
-	DrawSphere3D(pos_, 3, 1, 0xff0000, 0xff0000, true);
-	DrawSphere3D(targetPos_, 3, 1, 0xff0000, 0xff0000, true);
+	//DrawSphere3D(pos_, 3, 1, 0xff0000, 0xff0000, true);
+	//DrawSphere3D(targetPos_, 3, 1, 0xff0000, 0xff0000, true);
 
 
 	midRayDestinationPos_ = VAdd(pos_, VScale(GetForward(), MIDPOS_STRETCH_POW));

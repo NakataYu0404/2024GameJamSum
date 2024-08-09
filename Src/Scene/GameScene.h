@@ -88,6 +88,11 @@ private:
 
 	int imgAlready_;
 	int imgReady_;
+	int imgWin_;
+	int imgPlayer1_;
+	int imgPlayer2_;
+	int imgPlayer3_;
+	int imgPlayer4_;
 
 	int sndDecide_;
 	int sndGameStart_;
