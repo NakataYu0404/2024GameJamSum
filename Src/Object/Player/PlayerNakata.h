@@ -63,6 +63,8 @@ private:
 
 	std::vector<std::weak_ptr<Player>> players_;
 
+	std::shared_ptr<Transform> charactorTran_;
+
 	int ForwardKey_;
 	int BackKey_;
 	int RightKey_;

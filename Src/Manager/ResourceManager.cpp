@@ -64,6 +64,15 @@ void ResourceManager::Init(void)
 	res = new RES(RES_T::MODEL, PATH_MDL + "Player/ball4.mv1");
 	resourcesMap_.emplace(SRC::MDL_PLAYER_BALL4, res);
 
+	res = new RES(RES_T::MODEL, PATH_MDL + "Player/aka.mv1");
+	resourcesMap_.emplace(SRC::MDL_PLAYER_RED, res);
+	res = new RES(RES_T::MODEL, PATH_MDL + "Player/midori.mv1");
+	resourcesMap_.emplace(SRC::MDL_PLAYER_GREEN, res);
+	res = new RES(RES_T::MODEL, PATH_MDL + "Player/ao.mv1");
+	resourcesMap_.emplace(SRC::MDL_PLAYER_BLUE, res);
+	res = new RES(RES_T::MODEL, PATH_MDL + "Player/kiiro.mv1");
+	resourcesMap_.emplace(SRC::MDL_PLAYER_YELLOW, res);
+
 	//	エフェクト
 	res = new RES(RES_T::EFFEKSEER, PATH_EFF + "Magma_Suekane/Magma01_Suekane.efkefc");
 	resourcesMap_.emplace(SRC::EFF_MAGMA_JUMP, res);

@@ -162,6 +162,20 @@ void GameScene::DrawUI(void)
 		Timer::GetInstance().Draw();
 		break;
 	case GameScene::InSceneType::GAMEOVER:
+		switch (winType_)
+		{
+		case GameScene::WinType::PLAYER_1:
+			break;
+		case GameScene::WinType::PLAYER_2:
+			break;
+		case GameScene::WinType::PLAYER_3:
+			break;
+		case GameScene::WinType::PLAYER_4:
+			break;
+		case GameScene::WinType::DRAW:
+			break;
+		}
+
 		break;
 	default:
 		break;
@@ -169,6 +183,12 @@ void GameScene::DrawUI(void)
 
 	DrawFormatString(0, 0, 0xffffff, "Game");
 
+}
+
+void GameScene::GoGameOver(WinType type)
+{
+	winType_ = type;
+	inTypeGame_ = InSceneType::GAMEOVER;
 }
 
 void GameScene::UpdateReady(void)
@@ -227,16 +247,29 @@ void GameScene::UpdateInGame(void)
 	colMng_.Update();
 
 
-	//	if(Œˆ’…)
-	//	{	
-	if (players_[0]->GetAlive())
+	if (Timer::GetInstance().IsTimeOver())
 	{
+		GoGameOver(WinType::DRAW);
 	}
-	//		if (InputManager::GetInstance().IsTrgDown(KEY_INPUT_NUMPAD0))
-	//		{
-	//			inTypeGame_ = InSceneType::GAMEOVER;
-	//		}
-	//	}
+	else
+	{
+		if (!players_[0]->GetAlive() && !players_[1]->GetAlive() && !players_[2]->GetAlive())
+		{
+			GoGameOver(WinType::PLAYER_4);
+		}
+		if (!players_[0]->GetAlive() && !players_[2]->GetAlive() && !players_[3]->GetAlive())
+		{
+			GoGameOver(WinType::PLAYER_2);
+		}
+		if (!players_[1]->GetAlive() && !players_[2]->GetAlive() && !players_[3]->GetAlive())
+		{
+			GoGameOver(WinType::PLAYER_1);
+		}
+		if (!players_[0]->GetAlive() && !players_[1]->GetAlive() && !players_[3]->GetAlive())
+		{
+			GoGameOver(WinType::PLAYER_3);
+		}
+	}
 }
 
 void GameScene::UpdateOver(void)
