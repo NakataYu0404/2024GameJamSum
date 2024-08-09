@@ -75,6 +75,11 @@ void GameScene::Init(void)
 
 	imgAlready_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::IMG_ALREADY).handleId_;
 	imgReady_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::IMG_READY).handleId_;
+	imgWin_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::IMG_WIN).handleId_;
+	imgPlayer1_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::IMG_PLAYER1).handleId_;
+	imgPlayer2_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::IMG_PLAYER2).handleId_;
+	imgPlayer3_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::IMG_PLAYER3).handleId_;
+	imgPlayer4_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::IMG_PLAYER4).handleId_;
 
 	sndDecide_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::SND_DECIDE).handleId_;
 	sndGameStart_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::SND_GAME_START).handleId_;
@@ -167,17 +172,28 @@ void GameScene::DrawUI(void)
 		Timer::GetInstance().Draw();
 		break;
 	case GameScene::InSceneType::GAMEOVER:
+		
+		DrawRotaGraph(Application::SCREEN_SIZE_X / 2, Application::SCREEN_SIZE_Y / 2 - 200, 1.0, 0.0, imgWin_, true);
+
 		switch (winType_)
 		{
 			//	Ç±Ç±Ç…ÅAèüóòDraw
 		case GameScene::WinType::PLAYER_1:
+			DrawRotaGraph(Application::SCREEN_SIZE_X / 2, Application::SCREEN_SIZE_Y / 2 + 150, 1.0, 0.0, imgPlayer1_, true);
 			break;
+	
 		case GameScene::WinType::PLAYER_2:
+			DrawRotaGraph(Application::SCREEN_SIZE_X / 2, Application::SCREEN_SIZE_Y / 2 + 150, 1.0, 0.0, imgPlayer2_, true);
 			break;
+
 		case GameScene::WinType::PLAYER_3:
+			DrawRotaGraph(Application::SCREEN_SIZE_X / 2, Application::SCREEN_SIZE_Y / 2 + 150, 1.0, 0.0, imgPlayer3_, true);
 			break;
+
 		case GameScene::WinType::PLAYER_4:
+			DrawRotaGraph(Application::SCREEN_SIZE_X / 2, Application::SCREEN_SIZE_Y / 2 + 150, 1.0, 0.0, imgPlayer4_, true);
 			break;
+
 		case GameScene::WinType::DRAW:
 			break;
 		}
