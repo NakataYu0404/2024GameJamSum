@@ -1,5 +1,6 @@
 #include <DxLib.h>
 #include <EffekseerForDXLib.h>
+#include "../../Application.h"
 #include "../../Utility/AsoUtility.h"
 #include "../../Manager/ResourceManager.h"
 #include "../../Manager/InputManager.h"
@@ -45,10 +46,17 @@ void Player::Update(void)
 	charactorTran_->quaRot = playerRotY_;
 	charactorTran_->Update();
 
+	AnimUpdate();
+
 	if (transform_->pos.y <= -1000.0f)
 	{
 		isAlive_ = false;
 	}
+}
+
+void Player::AnimUpdate(void)
+{
+	animationController_->Update();
 }
 
 void Player::Draw(void)
@@ -135,6 +143,7 @@ void Player::SetParam(void)
 	goalQuaRot_ = Quaternion();
 	stepRotTime_ = 0.0f;
 
+	InitAnimation();
 }
 
 void Player::OnCollision(std::weak_ptr<Collider> collider)
@@ -255,6 +264,21 @@ void Player::SetGoalRotate(double rotRad)
 
 	goalQuaRot_ = axis;
 
+}
+
+void Player::InitAnimation(void)
+{
+	std::string path = Application::PATH_MODEL + "Player/Animation/";
+
+	animationController_ = std::make_shared<AnimationController>(charactorTran_->modelId);
+
+
+	//animationController_->Add((int)ANIM_TYPE::IDLE, path + "Idle.mv1", 20.0f);
+	animationController_->Add((int)ANIM_TYPE::WALK, path + "Walking.mv1", 60.0f);
+
+
+	animationController_->Play((int)ANIM_TYPE::WALK);
+	AnimUpdate();
 }
 
 void Player::Rotate(void)

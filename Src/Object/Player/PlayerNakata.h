@@ -3,6 +3,8 @@
 #include <vector>
 #include "../ActorBase.h"
 
+class AnimationController;
+
 //	すでに先人がPlayerでGameSceneにクラスを作ったりしていたので、その遺物を利用するために名前をPlayerにした
 class Player : public ActorBase
 {
@@ -11,6 +13,11 @@ public:
 	static constexpr float MAX_SPEED = 1.0f;
 	static constexpr float MIN_SPEED = -1.0f;
 	static constexpr float DEFAULT_GRAVITY_POW = -9.8f;
+
+	enum class ANIM_TYPE
+	{
+		WALK,
+	};
 
 	Player(int plNum);
 	~Player();
@@ -43,7 +50,9 @@ private:
 
 	void SetGoalRotate(double rotRad);
 
-	//void
+	void InitAnimation(void);
+
+	void AnimUpdate(void);
 
 	//	最終的な移動量
 	VECTOR movePow_;
@@ -72,6 +81,9 @@ private:
 	std::vector<std::weak_ptr<Player>> players_;
 
 	std::shared_ptr<Transform> charactorTran_;
+
+	//	アニメーション
+	std::shared_ptr<AnimationController> animationController_;
 
 	float rotRad_;
 
