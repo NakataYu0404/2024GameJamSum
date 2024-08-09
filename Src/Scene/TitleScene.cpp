@@ -23,13 +23,14 @@ TitleScene::~TitleScene(void)
 void TitleScene::Init(void)
 {
 	//タイトル画像
+	titleBackImg_ = LoadGraph((Application::PATH_IMAGE + "TitleBack.png").c_str());
 	titleLogoImg_[0] = LoadGraph((Application::PATH_IMAGE + "Title1.png").c_str());
 	titleLogoImg_[1] = LoadGraph((Application::PATH_IMAGE + "Title2.png").c_str());
 	titleLogoImg_[2] = LoadGraph((Application::PATH_IMAGE + "Title3.png").c_str());
 
 	for (int i = 0; i < TITLE_LOGO_NUM; i++)
 	{
-		titleLogoPos_[i] = { Application::SCREEN_SIZE_X / 2 , 0 };
+		titleLogoPos_[i] = { Application::SCREEN_SIZE_X / 2 , -TITLE_LOGO_SIZE_Y };
 		titleLogoShiftTime_[i] = 0;
 		titleLogoBackScale_[i] = 1.0f;
 	}
@@ -86,6 +87,8 @@ void TitleScene::Draw3D(void)
 
 void TitleScene::Draw2D(void)
 {
+	//タイトル背景
+	DrawRotaGraph(Application::SCREEN_SIZE_X / 2, Application::SCREEN_SIZE_Y / 2, 1.0, 0.0, titleBackImg_, true);
 }
 
 void TitleScene::DrawUI(void)

@@ -41,6 +41,9 @@ private:
 	void Draw2D(void) override;
 	void DrawUI(void) override;
 
+	//タイトル背景
+	int titleBackImg_;
+	
 	//タイトルロゴ
 	int titleLogoImg_[TITLE_LOGO_NUM];
 
