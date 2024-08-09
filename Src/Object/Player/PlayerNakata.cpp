@@ -58,19 +58,19 @@ void Player::SetParam(void)
 		transform_->MakeCollider(Collider::Category::PLAYER1, Collider::TYPE::SPHERE);
 		break;
 	case 1:
-		transform_->SetModel(resIns.LoadModelDuplicate(ResourceManager::SRC::MDL_PLAYER_BALL1));
+		transform_->SetModel(resIns.LoadModelDuplicate(ResourceManager::SRC::MDL_PLAYER_BALL2));
 		transform_->pos = { -100.0f,0.0f,-100.0f };
 
 		transform_->MakeCollider(Collider::Category::PLAYER2, Collider::TYPE::SPHERE);
 		break;
 	case 2:
-		transform_->SetModel(resIns.LoadModelDuplicate(ResourceManager::SRC::MDL_PLAYER_BALL1));
+		transform_->SetModel(resIns.LoadModelDuplicate(ResourceManager::SRC::MDL_PLAYER_BALL3));
 		transform_->pos = { 100.0f,0.0f,100.0f };
 
 		transform_->MakeCollider(Collider::Category::PLAYER3, Collider::TYPE::SPHERE);
 		break;
 	case 3:
-		transform_->SetModel(resIns.LoadModelDuplicate(ResourceManager::SRC::MDL_PLAYER_BALL1));
+		transform_->SetModel(resIns.LoadModelDuplicate(ResourceManager::SRC::MDL_PLAYER_BALL4));
 		transform_->pos = { 100.0f,0.0f,-100.0f };
 
 		transform_->MakeCollider(Collider::Category::PLAYER4, Collider::TYPE::SPHERE);
