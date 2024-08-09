@@ -41,6 +41,16 @@ void ResourceManager::Init(void)
 	resourcesMap_.emplace(SRC::IMG_READY, res);
 	res = new RES(RES_T::IMG, PATH_IMG + "ok.png");
 	resourcesMap_.emplace(SRC::IMG_ALREADY, res);
+	res = new RES(RES_T::IMG, PATH_IMG + "Win.png");
+	resourcesMap_.emplace(SRC::IMG_WIN, res);
+	res = new RES(RES_T::IMG, PATH_IMG + "Player1.png");
+	resourcesMap_.emplace(SRC::IMG_PLAYER1, res);
+	res = new RES(RES_T::IMG, PATH_IMG + "Player2.png");
+	resourcesMap_.emplace(SRC::IMG_PLAYER2, res);
+	res = new RES(RES_T::IMG, PATH_IMG + "Player3.png");
+	resourcesMap_.emplace(SRC::IMG_PLAYER3, res);
+	res = new RES(RES_T::IMG, PATH_IMG + "Player4.png");
+	resourcesMap_.emplace(SRC::IMG_PLAYER4, res);
 
 	//	ƒ‚ƒfƒ‹
 	res = new RES(RES_T::MODEL, PATH_MDL + "-1");
@@ -105,6 +115,8 @@ void ResourceManager::Init(void)
 	resourcesMap_.emplace(SRC::SND_ROLL_3, res);
 	res = new RES(RES_T::SOUND, PATH_SND + "korogaru4.mp3");
 	resourcesMap_.emplace(SRC::SND_ROLL_4, res);
+	res = new RES(RES_T::SOUND, PATH_SND + "Hit.mp3");
+	resourcesMap_.emplace(SRC::SND_HIT, res);
 	res = new RES(RES_T::SOUND, PATH_SND + "BGM.mp3");
 	resourcesMap_.emplace(SRC::SND_BGM, res);
 

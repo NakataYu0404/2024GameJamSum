@@ -26,6 +26,10 @@ void Player::Init(void)
 	charactorTran_ = std::make_shared<Transform>();
 
 	SetParam();
+
+	// ‰¹’Ç‰Á‚µ‚Ü‚·
+	sndRoll_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::SND_ROLL_1).handleId_;
+	sndHit_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::SND_HIT).handleId_;
 }
 
 void Player::Update(void)
@@ -140,6 +144,10 @@ void Player::SetParam(void)
 void Player::OnCollision(std::weak_ptr<Collider> collider)
 {
 	int i = 0;
+
+	// ‰¹’Ç‰Á‚µ‚Ü‚·
+	PlaySoundMem(sndHit_, DX_PLAYTYPE_BACK);
+
 	switch (collider.lock()->category_)
 	{
 	case Collider::Category::PLAYER1:

@@ -15,6 +15,11 @@ public:
 		//	ó·ÅFIMG_TITLE
 		IMG_READY,
 		IMG_ALREADY,
+		IMG_WIN,
+		IMG_PLAYER1,
+		IMG_PLAYER2,
+		IMG_PLAYER3,
+		IMG_PLAYER4,
 
 		//	ÉÇÉfÉã MDL_
 		MDL_NONE,
@@ -46,6 +51,7 @@ public:
 		SND_ROLL_2,
 		SND_ROLL_3,
 		SND_ROLL_4,
+		SND_HIT,
 		SND_BGM,
 
 
